@@ -81,6 +81,8 @@ class GameState:
 		del self.entities[entity_key_pair[0]]
 
 	def print(self, surface_surf):
+		surface_surf.fill((0, 0, 0))
+
 		self._print_level(surface_surf)
 
 		for key, ent in self.entities.items():
