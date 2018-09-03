@@ -1,6 +1,7 @@
 """This is the base class for entities in the game"""
 
 import pygame
+from pygame.locals import *
 
 class Entitiy:
 	"""docstring for Entitiy"""

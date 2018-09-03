@@ -56,6 +56,9 @@ class GameState:
 				elif event.key == K_LEFT:
 					self.mover.left = False
 
+		for key, ent in self.entities.items():
+			ent.process_events(events)
+
 	def _move(self):
 		mov = self.mover._move()
 
