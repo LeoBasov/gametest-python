@@ -17,18 +17,18 @@ def main():
 	pygame.display.set_caption('SUPER Marianito')
 
 	#creae game state
-	state1 = state.gamestate.GameState()
+	game_state = state.gamestate.GameState()
+	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
 
 	#start game loop
-	while True:
-		#handle events
-		for event in pygame.event.get():
-			if event.type == QUIT:
-				pygame.quit()
-				sys.exit()
+	while True: 
+		events = pygame.event.get()
 
-	pygame.display.update()
-	fps_clock.tick(config.fps)
+		game_state.exec(events)
+		game_state.print(DISPLAYSURF)
+
+		pygame.display.update()
+		fps_clock.tick(config.fps)
 
 if __name__ == '__main__':
 	main()
