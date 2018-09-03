@@ -3,6 +3,7 @@ from pygame.locals import *
 from config import parser
 import state.gamestate
 import state.level
+from entities.supermarianito import SuperMarianito
 
 def main():
 	"""main function of the game"""
@@ -19,6 +20,13 @@ def main():
 	#creae game state
 	game_state = state.gamestate.GameState()
 	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
+
+	#entities
+	sup = SuperMarianito()
+
+	sup.load_graphic('./graphics/sup.png')
+
+	game_state.add_entitiy(('sup',sup))
 
 	#music
 	pygame.mixer.music.load('./sound/01-main-theme-overworld.mp3')
