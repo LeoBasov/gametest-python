@@ -1,6 +1,8 @@
 import pygame, sys
 from pygame.locals import *
 from config import parser
+import state.gamestate
+import state.level
 
 def main():
 	"""main function of the game"""
@@ -13,6 +15,9 @@ def main():
 	fps_clock = pygame.time.Clock()
 	DISPLAYSURF = pygame.display.set_mode((config.resolution[0], config.resolution[1]))
 	pygame.display.set_caption('SUPER Marianito')
+
+	#creae game state
+	state1 = state.gamestate.GameState()
 
 	#start game loop
 	while True:
