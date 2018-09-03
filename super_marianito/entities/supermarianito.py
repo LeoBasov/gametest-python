@@ -22,8 +22,8 @@ class SuperMarianito(Entitiy):
 
 		self.walking = False
 		self.walk_it = 0
-		self.walk_max1 = 3
-		self.walk_max2 = 6
+		self.walk_max1 = 4
+		self.walk_max2 = 8
 
 	def process_events(self, events):
 		for event in events:
@@ -49,7 +49,7 @@ class SuperMarianito(Entitiy):
 			self.walking = True
 			self.animation_step = 'stand'
 
-		if self.walking and self.walk_it<self.walk_max1:
+		if self.walking and self.walk_it<=self.walk_max1:
 			self.animation_step = 'walk'
 			self.walk_it += 1
 		elif self.walking and self.walk_it<self.walk_max2:
