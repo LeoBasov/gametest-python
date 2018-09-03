@@ -62,6 +62,9 @@ class GameState:
 		self.position[0] += mov[0]
 		self.position[1] += mov[1]
 
+		for ent in self.entities:
+			ent.move(self.position)
+
 	def _check_collisions(self, events):
 		pass
 
@@ -76,6 +79,9 @@ class GameState:
 
 	def print(self, surface_surf):
 		self._print_level(surface_surf)
+
+		for ent in self.entities:
+			ent.print(surface_surf)
 
 	def _print_level(self, surface_surf):
 		surface_surf.blit(self.level.graphic, (self.position[0], self.position[1]))
