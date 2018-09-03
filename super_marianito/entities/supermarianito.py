@@ -20,7 +20,8 @@ class SuperMarianito(Entitiy):
 
 		self.animation_step = 'stand'
 
-		self.walking = False
+		self.walking = True
+		self.walking_pressed = False
 		self.walk_it = 0
 		self.walk_max1 = 4
 		self.walk_max2 = 8
@@ -35,9 +36,9 @@ class SuperMarianito(Entitiy):
 				self.position[1] -= 1
 				self.iter = self.iter_length
 			elif (event.type == KEYDOWN) and (event.key == K_RIGHT) and (not self.jumping):
-				self.walking = True
+				self.walking_pressed = True
 			elif (event.type == KEYUP) and (event.key == K_RIGHT) and (not self.jumping):
-				self.walking = False
+				self.walking_pressed = False
 
 	def move(self, addition):
 		if self.jumping and (self.position[1] < self.start):
@@ -49,15 +50,15 @@ class SuperMarianito(Entitiy):
 			self.walking = True
 			self.animation_step = 'stand'
 
-		if self.walking and self.walk_it<=self.walk_max1:
+		if self.walking and self.walking_pressed and self.walk_it<=self.walk_max1:
 			self.animation_step = 'walk'
 			self.walk_it += 1
-		elif self.walking and self.walk_it<self.walk_max2:
+		elif self.walking and self.walking_pressed and self.walk_it<self.walk_max2:
 			self.animation_step = 'stand'
 			self.walk_it += 1
-		elif self.walking and self.walk_it>=self.walk_max2:
+		elif self.walking and self.walking_pressed and self.walk_it>=self.walk_max2:
 			self.walk_it = 0
 		
-		if not self.walking and not self.jumping:
+		if (not self.walking or not self.walking_pressed) and not self.jumping:
 			self.animation_step = 'stand'
 
