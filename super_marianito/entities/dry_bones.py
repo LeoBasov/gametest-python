@@ -8,5 +8,7 @@ class DryBones(Entitiy):
 	def __init__(self):
 		super().__init__()
 
-		self.position[0] = 100
-		self.position[1] = 180
+		self.position[0] = 200
+		self.position[1] = 165
+
+		self.animation_step = 'walk_1'

@@ -4,6 +4,7 @@ from config import parser
 import state.gamestate
 import state.level
 from entities.supermarianito import SuperMarianito
+from entities.dry_bones import DryBones
 
 def main():
 	"""main function of the game"""
@@ -39,6 +40,10 @@ def main():
 		fps_clock.tick(config.fps)
 
 def set_up_entities(game_state):
+	set_up_sup(game_state)
+	set_up_dry_bones(game_state)
+
+def set_up_sup(game_state):
 	sup = SuperMarianito()
 
 	sup.load_graphic({'walk': './graphics/sup_walk.png'})
@@ -46,6 +51,13 @@ def set_up_entities(game_state):
 	sup.load_graphic({'jump': './graphics/sup_jump.png'})
 
 	game_state.add_entitiy(('sup',sup))
+
+def set_up_dry_bones(game_state):
+	dry_bones = DryBones()
+
+	dry_bones.load_graphic({'walk_1': './graphics/drybones_w_1.png'})
+
+	game_state.add_entitiy(('dry_bones',dry_bones))
 
 if __name__ == '__main__':
 	main()
