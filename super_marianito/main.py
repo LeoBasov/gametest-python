@@ -22,11 +22,7 @@ def main():
 	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
 
 	#entities
-	sup = SuperMarianito()
-
-	sup.load_graphic({'walk_1': './graphics/sup.png'})
-
-	game_state.add_entitiy(('sup',sup))
+	set_up_entities(game_state)
 
 	#music
 	pygame.mixer.music.load('./sound/01-main-theme-overworld.mp3')
@@ -41,6 +37,14 @@ def main():
 
 		pygame.display.update()
 		fps_clock.tick(config.fps)
+
+def set_up_entities(game_state):
+	sup = SuperMarianito()
+
+	sup.load_graphic({'walk_1': './graphics/sup.png'})
+	sup.load_graphic({'jump': './graphics/sup_jump.png'})
+
+	game_state.add_entitiy(('sup',sup))
 
 if __name__ == '__main__':
 	main()
