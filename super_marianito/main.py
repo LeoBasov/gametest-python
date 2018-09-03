@@ -24,7 +24,7 @@ def main():
 	#entities
 	sup = SuperMarianito()
 
-	sup.load_graphic('./graphics/sup.png')
+	sup.load_graphic({'walk_1': './graphics/sup.png'})
 
 	game_state.add_entitiy(('sup',sup))
 

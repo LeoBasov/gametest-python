@@ -9,3 +9,4 @@ class SuperMarianito(Entitiy):
 		self.position[0] = 50
 		self.position[1] = 180
 
+		self.animation_step = 'walk_1'
