@@ -60,7 +60,7 @@ class GameState:
 		mov = self.mover._move()
 
 		self.position[0] += mov[0]
-		#self.position[1] += mov[1]
+		self.position[1] += mov[1]
 
 	def _check_collisions(self, events):
 		pass
