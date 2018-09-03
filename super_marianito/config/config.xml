@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<game_config>
+	<resolution x="800" y="600"/>
+	<fps value="30"/>
+</game_config>
