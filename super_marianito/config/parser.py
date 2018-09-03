@@ -8,18 +8,18 @@ class Config:
 		self.resolution = [400, 400]
 		self.fps = 30
 
-def get_game_state():
+def get_game_state(file_name):
 	config = Config()
 
-	tree = ElementTree.parse('config.xml')
+	tree = ElementTree.parse(file_name)
 	root = tree.getroot()
 
 	resolution = root.find("resolution")
 	fps = root.find("fps")
 
-	config.resolution[0] = float(resolution.get('x'))
-	config.resolution[1] = float(resolution.get('y'))
+	config.resolution[0] = int(resolution.get('x'))
+	config.resolution[1] = int(resolution.get('y'))
 
-	config.fps = float(fps.get('value'))
+	config.fps = int(fps.get('value'))
 
 	return config
