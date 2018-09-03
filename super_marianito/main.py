@@ -20,6 +20,10 @@ def main():
 	game_state = state.gamestate.GameState()
 	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
 
+	#music
+	pygame.mixer.music.load('./sound/01-main-theme-overworld.mp3')
+	pygame.mixer.music.play(-1, 0.0)
+
 	#start game loop
 	while True: 
 		events = pygame.event.get()

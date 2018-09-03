@@ -4,12 +4,18 @@ import pygame, sys
 from pygame.locals import *
 from state.level import Level
 
+class Move:
+
+	def __init__(self):
+		self.move_speed = [0, 0]
+
 class GameState:
 	"""docstring for Entitiy"""
 
 	def __init__(self):
 		self.entities = {}
 		self.level = Level()
+		self.move = Move()
 
 	def create_level(self, file_name):
 		self.level.graphic =  pygame.image.load(file_name)
