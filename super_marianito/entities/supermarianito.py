@@ -9,6 +9,3 @@ class SuperMarianito(Entitiy):
 		self.position[0] = 50
 		self.position[1] = 180
 
-	def move(self, addition):
-		self.position[0] -= addition[0]
-		self.position[1] += addition[1]
