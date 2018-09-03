@@ -56,6 +56,12 @@ def set_up_dry_bones(game_state):
 	dry_bones = DryBones()
 
 	dry_bones.load_graphic({'walk_1': './graphics/drybones_w_1.png'})
+	dry_bones.load_graphic({'walk_2': './graphics/drybones_w_2.png'})
+	dry_bones.load_graphic({'walk_3': './graphics/drybones_w_3.png'})
+	dry_bones.load_graphic({'walk_4': './graphics/drybones_w_4.png'})
+	dry_bones.load_graphic({'walk_5': './graphics/drybones_w_5.png'})
+	dry_bones.load_graphic({'walk_6': './graphics/drybones_w_6.png'})
+	dry_bones.load_graphic({'walk_7': './graphics/drybones_w_7.png'})
 
 	game_state.add_entitiy(('dry_bones',dry_bones))
 

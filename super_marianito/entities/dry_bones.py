@@ -12,3 +12,40 @@ class DryBones(Entitiy):
 		self.position[1] = 165
 
 		self.animation_step = 'walk_1'
+
+		self.walk_it = 0
+		self.walk_max1 = 6
+		self.walk_max2 = 2*self.walk_max1
+		self.walk_max3 = 3*self.walk_max1
+		self.walk_max4 = 4*self.walk_max1
+		self.walk_max5 = 5*self.walk_max1
+		self.walk_max6 = 6*self.walk_max1
+		self.walk_max7 = 7*self.walk_max1
+
+	def move(self, addition):
+		self.position[0] += addition[0] - 1
+		self.position[1] += addition[1]
+
+		if self.walk_it<=self.walk_max1:
+			self.animation_step = 'walk_1'
+			self.walk_it += 1
+		elif self.walk_it<self.walk_max2:
+			self.animation_step = 'walk_2'
+			self.walk_it += 1
+		elif self.walk_it<self.walk_max3:
+			self.animation_step = 'walk_3'
+			self.walk_it += 1
+		elif self.walk_it<self.walk_max4:
+			self.animation_step = 'walk_4'
+			self.walk_it += 1
+		elif self.walk_it<self.walk_max5:
+			self.animation_step = 'walk_5'
+			self.walk_it += 1
+		elif self.walk_it<self.walk_max6:
+			self.animation_step = 'walk_6'
+			self.walk_it += 1
+		elif self.walk_it<self.walk_max7:
+			self.animation_step = 'walk_7'
+			self.walk_it += 1
+		elif self.walk_it>=self.walk_max7:
+			self.walk_it = 0
