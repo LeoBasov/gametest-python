@@ -85,4 +85,5 @@ class DryBones(Entitiy):
 					self.dieing = True
 					self.start = self.position[1]
 
-		self.collisions = {}
+			self.collisions = {}
+			
