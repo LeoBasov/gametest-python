@@ -3,15 +3,27 @@
 import pygame
 from pygame.locals import *
 
+class Collision:
+
+	def __init__(self):
+		self.collided = False
+		self.position = [0, 0]
+		self.left = False
+		self.right = False
+		self.top = False
+		self.buttom = False
+
 class Entitiy:
 	"""docstring for Entitiy"""
 
 	def __init__(self):
 		self.position = [0, 0]
+		self.extension = [0, 0]
 		self.animation_step = ''
 		self.graphics  = {}
 		self.sounds = {}
 		self.dead = False
+		self.collisions = {}
 
 	def load_graphic(self, file_names):
 		for key, file_name in file_names.items():
@@ -32,3 +44,36 @@ class Entitiy:
 
 	def kill(self):
 		pass
+
+	def check_collision(self, other, key):
+		collision = self._check_collision(other)
+
+		if collision.collided:
+			if not key in self.collisions:
+				self.collisions[key] = [collision]
+			else:
+				self.collisions[key].append(collision)
+
+	def _check_collision(self, other):
+		collision = Collision()
+
+		if (self.position[0] + self.extension[0]) > other.position[0]:
+			collision.left = True
+			collision.collided = True
+
+		if self.position[0] < (other.position[0] + other.extension[0]):
+			collision.right = True
+			collision.collided = True
+
+		if (self.position[1] + self.extension[1]) > other.position[1]:
+			collision.top = True
+			collision.collided = True
+
+		if self.position[1] < (other.position[1] + other.extension[1]):
+			collision.buttom = True
+			collision.collided = True
+
+		return collision
+
+	def evaluate_collisions(self):
+		self.collisions = {}

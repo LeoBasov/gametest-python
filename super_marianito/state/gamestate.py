@@ -39,6 +39,7 @@ class GameState:
 		self._process_events(events)
 		self._move()
 		self._check_collisions(events)
+		self._evaluate_collisions()
 		self._delete_dead()
 
 	def _process_events(self, events):
@@ -70,7 +71,19 @@ class GameState:
 			ent.move(mov)
 
 	def _check_collisions(self, events):
-		pass
+		player = self.entities['sup']
+
+		for key, ent in self.entities.items():
+			if key != 'sup':
+				player.check_collision(ent, key)
+
+				for key_inner, ent_inner in self.entities.items():
+					if key_inner != key:
+						ent.check_collision(ent_inner, key_inner)
+
+	def _evaluate_collisions(self):
+		for key, ent in self.entities.items():
+			ent.evaluate_collisions()
 
 	def add_entitiy(self,entity_key_pair):
 		if entity_key_pair[0] in self.entities:
