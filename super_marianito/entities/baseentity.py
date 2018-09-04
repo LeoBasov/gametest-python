@@ -11,6 +11,7 @@ class Entitiy:
 		self.animation_step = ''
 		self.graphics  = {}
 		self.sounds = {}
+		self.dead = False
 
 	def load_graphic(self, file_names):
 		for key, file_name in file_names.items():
@@ -28,3 +29,6 @@ class Entitiy:
 
 	def print(self, surface_surf):
 		surface_surf.blit(self.graphics[self.animation_step], (self.position[0], self.position[1]))
+
+	def kill(self):
+		pass

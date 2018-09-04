@@ -39,6 +39,7 @@ class GameState:
 		self._process_events(events)
 		self._move()
 		self._check_collisions(events)
+		self._delete_dead()
 
 	def _process_events(self, events):
 		for event in events:
@@ -90,3 +91,13 @@ class GameState:
 
 	def _print_level(self, surface_surf):
 		surface_surf.blit(self.level.graphic, (self.position[0], self.position[1]))
+
+	def _delete_dead(self):
+		del_keys = []
+
+		for key, ent in self.entities.items():
+			if ent.dead:
+				del_keys.append(key)
+
+		for key in del_keys:
+			del self.entities[key]
