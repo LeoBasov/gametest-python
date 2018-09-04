@@ -50,6 +50,9 @@ def set_up_sup(game_state):
 	sup.load_graphic({'walk': './graphics/sup_walk.png'})
 	sup.load_graphic({'stand': './graphics/sup.png'})
 	sup.load_graphic({'jump': './graphics/sup_jump.png'})
+	sup.load_graphic({'walk_back': './graphics/sup_walk_back.png'})
+	sup.load_graphic({'stand_back': './graphics/sup_back.png'})
+	sup.load_graphic({'jump_back': './graphics/sup_jump_back.png'})
 
 	sup.load_sounds({'jump': './sound/smb_jump-small.wav'})
 
