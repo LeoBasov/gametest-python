@@ -24,7 +24,7 @@ def main():
 	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
 
 	#entities
-	set_up_entities(game_state)
+	set_up_entities(game_state, config)
 
 	#music
 	pygame.mixer.music.load('./sound/01-main-theme-overworld.mp3')
@@ -40,11 +40,11 @@ def main():
 		pygame.display.update()
 		fps_clock.tick(config.fps)
 
-def set_up_entities(game_state):
-	set_up_sup(game_state)
-	set_up_dry_bones(game_state)
+def set_up_entities(game_state, config):
+	set_up_sup(game_state, config)
+	set_up_dry_bones(game_state, config)
 
-def set_up_sup(game_state):
+def set_up_sup(game_state, config):
 	sup = SuperMarianito()
 
 	sup.load_graphic({'walk': './graphics/sup_walk.png'})
@@ -56,9 +56,11 @@ def set_up_sup(game_state):
 
 	sup.load_sounds({'jump': './sound/smb_jump-small.wav'})
 
+	sup.death_range = [[0, 0],[0, 0]]
+
 	game_state.add_entitiy(('sup',sup))
 
-def set_up_dry_bones(game_state):
+def set_up_dry_bones(game_state, config):
 	dry_bones = DryBones()
 
 	dry_bones.load_graphic({'walk_1': './graphics/drybones_w_1.png'})
@@ -68,6 +70,10 @@ def set_up_dry_bones(game_state):
 	dry_bones.load_graphic({'walk_5': './graphics/drybones_w_5.png'})
 	dry_bones.load_graphic({'walk_6': './graphics/drybones_w_6.png'})
 	dry_bones.load_graphic({'walk_7': './graphics/drybones_w_7.png'})
+
+	dry_bones.load_sounds({'die': './sound/smb_kick.wav'})
+
+	dry_bones.death_range = [[0, 0],[0,  config.resolution[1] + 20]]
 
 	game_state.add_entitiy(('dry_bones',dry_bones))
 

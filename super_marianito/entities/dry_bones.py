@@ -25,7 +25,15 @@ class DryBones(Entitiy):
 		self.walk_max6 = 6*self.walk_max1
 		self.walk_max7 = 7*self.walk_max1
 
-	def move(self, addition):
+		self.dieing = False
+		self.start = 0
+		self.height = 10
+		self.iter = 0
+		self.iter_length = 0.4
+
+		self.last_addition = 0
+
+	def _move(self, addition):
 		self.position[0] += addition[0] - 1
 		self.position[1] += addition[1]
 
@@ -53,9 +61,28 @@ class DryBones(Entitiy):
 		elif self.walk_it>=self.walk_max7:
 			self.walk_it = 0
 
+	def _die(self, addition):
+		if self.position[1] <= self.start:
+			self.position[1] = self.start - self.height*math.sin(self.iter)
+			self.iter += self.iter_length
+			self.last_addition = self.height*math.sin(self.iter)
+		else:
+			self.position[1] -= self.last_addition
+
+	def move(self, addition):
+		if self.death_range[1][1] < self.position[1]:
+			self.dead = True
+		elif self.dieing:
+			self._die(addition)
+		else:
+			self._move(addition)
+
 	def evaluate_collisions(self):
-		for key, collision in self.collisions.items():
-			if key == 'sup' and collision[0].left and collision[0].right and collision[0].top and collision[0].buttom:
-				self.dead = True
+		if not self.dieing:
+			for key, collision in self.collisions.items():
+				if key == 'sup' and collision[0].left and collision[0].right and collision[0].top and collision[0].buttom:
+					self.sounds['die'].play()
+					self.dieing = True
+					self.start = self.position[1]
 
 		self.collisions = {}

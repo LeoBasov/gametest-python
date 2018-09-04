@@ -24,6 +24,7 @@ class Entitiy:
 		self.sounds = {}
 		self.dead = False
 		self.collisions = {}
+		self.death_range = [[0, 0],[0, 0]]
 
 	def load_graphic(self, file_names):
 		for key, file_name in file_names.items():
