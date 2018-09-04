@@ -59,18 +59,17 @@ class Entitiy:
 
 		if (self.position[0] + self.extension[0]) > other.position[0]:
 			collision.left = True
-			collision.collided = True
 
 		if self.position[0] < (other.position[0] + other.extension[0]):
 			collision.right = True
-			collision.collided = True
 
 		if (self.position[1] + self.extension[1]) > other.position[1]:
 			collision.top = True
-			collision.collided = True
 
 		if self.position[1] < (other.position[1] + other.extension[1]):
 			collision.buttom = True
+
+		if (collision.left and collision.right) or (collision.top and collision.buttom):
 			collision.collided = True
 
 		return collision

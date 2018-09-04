@@ -11,6 +11,9 @@ class DryBones(Entitiy):
 		self.position[0] = 200
 		self.position[1] = 165
 
+		self.extension[0] = 25
+		self.extension[1] = 20
+
 		self.animation_step = 'walk_1'
 
 		self.walk_it = 0
@@ -49,3 +52,10 @@ class DryBones(Entitiy):
 			self.walk_it += 1
 		elif self.walk_it>=self.walk_max7:
 			self.walk_it = 0
+
+	def evaluate_collisions(self):
+		for key, collision in self.collisions.items():
+			if key == 'sup' and collision[0].left and collision[0].right and collision[0].top and collision[0].buttom:
+				self.dead = True
+
+		self.collisions = {}
