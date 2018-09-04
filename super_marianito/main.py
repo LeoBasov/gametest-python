@@ -50,6 +50,8 @@ def set_up_sup(game_state):
 	sup.load_graphic({'stand': './graphics/sup.png'})
 	sup.load_graphic({'jump': './graphics/sup_jump.png'})
 
+	sup.load_sounds({'jump': './sound/smb_jump-small.wav'})
+
 	game_state.add_entitiy(('sup',sup))
 
 def set_up_dry_bones(game_state):
