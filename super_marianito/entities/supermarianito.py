@@ -26,19 +26,32 @@ class SuperMarianito(Entitiy):
 		self.walk_max1 = 4
 		self.walk_max2 = 8
 
+		self.facing_front = True
+
 	def process_events(self, events):
 		for event in events:
 			if (event.type == KEYDOWN) and (event.key == K_UP) and (not self.jumping):
 				self.jumping = True
 				self.walking = False
-				self.animation_step = 'jump'
 				self.start = self.position[1]
 				self.position[1] -= 1
 				self.iter = self.iter_length
 				self.sounds['jump'].play()
+
+				if self.facing_front:
+					self.animation_step = 'jump'
+				else:
+					self.animation_step = 'jump_back'
+
 			elif (event.type == KEYDOWN) and (event.key == K_RIGHT):
+				self.facing_front = True
 				self.walking_pressed = True
 			elif (event.type == KEYUP) and (event.key == K_RIGHT):
+				self.walking_pressed = False
+			elif (event.type == KEYDOWN) and (event.key == K_LEFT):
+				self.facing_front = False
+				self.walking_pressed = True
+			elif (event.type == KEYUP) and (event.key == K_LEFT):
 				self.walking_pressed = False
 
 	def move(self, addition):
@@ -49,17 +62,34 @@ class SuperMarianito(Entitiy):
 			self.position[1] = self.start
 			self.jumping = False
 			self.walking = True
-			self.animation_step = 'stand'
+
+			if self.facing_front:
+				self.animation_step = 'stand'
+			else:
+				self.animation_step = 'stand_back'
 
 		if self.walking and self.walking_pressed and self.walk_it<=self.walk_max1:
-			self.animation_step = 'walk'
 			self.walk_it += 1
+
+			if self.facing_front:
+				self.animation_step = 'walk'
+			else:
+				self.animation_step = 'walk_back'
+
 		elif self.walking and self.walking_pressed and self.walk_it<self.walk_max2:
-			self.animation_step = 'stand'
 			self.walk_it += 1
+
+			if self.facing_front:
+				self.animation_step = 'stand'
+			else:
+				self.animation_step = 'stand_back'
+
 		elif self.walking and self.walking_pressed and self.walk_it>=self.walk_max2:
 			self.walk_it = 0
 		
 		if (not self.walking or not self.walking_pressed) and not self.jumping:
-			self.animation_step = 'stand'
+			if self.facing_front:
+				self.animation_step = 'stand'
+			else:
+				self.animation_step = 'stand_back'
 
