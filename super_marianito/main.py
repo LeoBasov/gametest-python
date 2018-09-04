@@ -13,6 +13,7 @@ def main():
 	config = parser.get_game_state('./config/config.xml')
 
 	#initiize pygame
+	pygame.mixer.pre_init(44100, -16, 2, 2048)
 	pygame.init()
 	fps_clock = pygame.time.Clock()
 	DISPLAYSURF = pygame.display.set_mode((config.resolution[0], config.resolution[1]))
