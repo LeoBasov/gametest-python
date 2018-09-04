@@ -36,9 +36,9 @@ class SuperMarianito(Entitiy):
 				self.position[1] -= 1
 				self.iter = self.iter_length
 				self.sounds['jump'].play()
-			elif (event.type == KEYDOWN) and (event.key == K_RIGHT) and (not self.jumping):
+			elif (event.type == KEYDOWN) and (event.key == K_RIGHT):
 				self.walking_pressed = True
-			elif (event.type == KEYUP) and (event.key == K_RIGHT) and (not self.jumping):
+			elif (event.type == KEYUP) and (event.key == K_RIGHT):
 				self.walking_pressed = False
 
 	def move(self, addition):
