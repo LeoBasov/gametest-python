@@ -12,8 +12,8 @@ class SuperMarianito(Entitiy):
 		self.position[0] = 50
 		self.position[1] = 180
 
-		self.extension[0] = 20
-		self.extension[1] = 20
+		self.extension[0] = 15
+		self.extension[1] = 15
 
 		self.jumping = False
 		self.start = 0
