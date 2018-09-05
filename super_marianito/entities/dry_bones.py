@@ -69,6 +69,9 @@ class DryBones(Entitiy):
 		else:
 			self.position[1] -= self.last_addition
 
+		self.position[0] += addition[0]
+		self.position[1] += addition[1]
+
 	def move(self, addition):
 		if self.death_range[1][1] < self.position[1]:
 			self.dead = True
@@ -80,7 +83,7 @@ class DryBones(Entitiy):
 	def evaluate_collisions(self):
 		if not self.dieing:
 			for key, collision in self.collisions.items():
-				if key == 'sup' and collision[0].left and collision[0].right and collision[0].top and collision[0].buttom:
+				if key == 'sup' and collision[0].collided:
 					self.sounds['die'].play()
 					self.dieing = True
 					self.start = self.position[1]

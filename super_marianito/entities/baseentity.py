@@ -8,10 +8,10 @@ class Collision:
 	def __init__(self):
 		self.collided = False
 		self.position = [0, 0]
-		self.left = False
-		self.right = False
-		self.top = False
-		self.buttom = False
+		self.left_in = False
+		self.right_in = False
+		self.top_in = False
+		self.buttom_in = False
 
 class Entitiy:
 	"""docstring for Entitiy"""
@@ -58,19 +58,23 @@ class Entitiy:
 	def _check_collision(self, other):
 		collision = Collision()
 
-		if (self.position[0] + self.extension[0]) > other.position[0]:
-			collision.left = True
+		if ((self.position[0] + self.extension[0]) > other.position[0]) \
+		and ((self.position[0] + self.extension[0]) < (other.position[0] + other.extension[0])):
+			collision.right_in = True
 
-		if self.position[0] < (other.position[0] + other.extension[0]):
-			collision.right = True
+		if ((self.position[0]) > other.position[0]) \
+		and ((self.position[0]) < (other.position[0] + other.extension[0])):
+			collision.left_in = True
 
-		if (self.position[1] + self.extension[1]) > other.position[1]:
-			collision.top = True
+		if ((self.position[1] + self.extension[1]) > other.position[1]) \
+		and ((self.position[1] + self.extension[1]) < (other.position[1] + other.extension[1])):
+			collision.buttom_in = True
 
-		if self.position[1] < (other.position[1] + other.extension[1]):
-			collision.buttom = True
+		if ((self.position[1]) > other.position[1]) \
+		and ((self.position[1]) < (other.position[1] + other.extension[1])):
+			collision.top_in = True
 
-		if (collision.left and collision.right) or (collision.top and collision.buttom):
+		if (collision.right_in or collision.left_in) and (collision.buttom_in or collision.top_in):
 			collision.collided = True
 
 		return collision
