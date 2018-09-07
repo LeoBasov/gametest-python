@@ -3,6 +3,76 @@
 import pygame
 from pygame.locals import *
 
+class BoundingBox:
+
+	def __init__(self, surface, collision_points = (), additions = ()):
+		self.left_add   = 0
+		self.right_add  = 0
+		self.top_add    = 0
+		self.buttom_add = 0
+
+		self.coll_points_left   = []
+		self.coll_points_right  = []
+		self.coll_points_top    = []
+		self.coll_points_buttom = []
+
+		self._create_additions(surface, additions)
+
+	def _create_collision_points(self, surface, collision_points):
+		if not len(collision_points):
+			number_of_points_per_side = 3
+
+			self.coll_points_left   = self._create_collision_points_left(surface, number_of_points_per_side)
+			self.coll_points_right  = self._create_collision_points_right(surface, number_of_points_per_side)
+			self.coll_points_top    = self._create_collision_points_top(surface, number_of_points_per_side)
+			self.coll_points_buttom = self._create_collision_points_buttom(surface, number_of_points_per_side)
+		else:
+			self.coll_points_left   = self._create_collision_points_left(surface, collision_points[0])
+			self.coll_points_right  = self._create_collision_points_right(surface, collision_points[1])
+			self.coll_points_top    = self._create_collision_points_top(surface, collision_points[2])
+			self.coll_points_buttom = self._create_collision_points_buttom(surface, collision_points[3])
+
+	def _create_collision_points_left(self, surface, number):
+		return []
+
+	def _create_collision_points_right(self, surface, number):
+		return []
+
+	def _create_collision_points_top(self, surface, number):
+		return []
+
+	def _create_collision_points_buttom(self, surface, number):
+		return []
+
+	def _create_additions(self, surface, additions):
+		rect = surface.get_rect()
+
+		if not len(additions):
+			self.left_add = rect.width/2
+			self.right_add = rect.width/2
+
+			self.top_add = rect.height/2
+			self.buttom_add = rect.height/2
+		else:
+			self.left_add = additions[0]
+			self.right_add = additions[1]
+
+			self.top_add = additions[2]
+			self.buttom_add = additions[3]
+
+	def get_left(self, position):
+		return position[0] - self.left_add
+
+	def get_right(self, position):
+		return position[0] + self.right_add
+
+	def get_top(self, position):
+		return position[1] - self.top_add
+
+	def get_buttom(self, position):
+		return position[1] + self.buttom_add
+
+
 class Collision:
 
 	def __init__(self):
