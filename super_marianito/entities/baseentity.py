@@ -69,10 +69,36 @@ class BoundingBox:
 		return points
 
 	def _create_collision_points_top(self, surface, number):
-		return []
+		first = [self.get_right(), self.get_top()]
+		last = [self.get_left(), self.get_top()]
+
+		dist = (self.get_right() - self.get_left())/number
+
+		points = [first]
+
+		for i in range(number - 1):
+			point = [self.get_right() - (i + 1)*dist, self.get_top()]
+			points.append(point)
+
+		points.append(last)
+
+		return points
 
 	def _create_collision_points_buttom(self, surface, number):
-		return []
+		first = [self.get_right(), self.get_buttom()]
+		last = [self.get_left(), self.get_buttom()]
+
+		dist = (self.get_right() - self.get_left())/number
+
+		points = [first]
+
+		for i in range(number - 1):
+			point = [self.get_right() - (i + 1)*dist, self.get_top()]
+			points.append(point)
+
+		points.append(last)
+
+		return points
 
 	def _create_additions(self, surface, additions):
 		rect = surface.get_rect()
