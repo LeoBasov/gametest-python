@@ -53,7 +53,20 @@ class BoundingBox:
 		return points
 
 	def _create_collision_points_right(self, surface, number):
-		return []
+		first = [self.get_right(), self.get_top()]
+		last = [self.get_right(), self.get_buttom()]
+
+		dist = (self.get_top() - self.get_buttom())/number
+
+		points = [first]
+
+		for i in range(number - 1):
+			point = [self.get_right(), self.get_top() + (i + 1)*dist]
+			points.append(point)
+
+		points.append(last)
+
+		return points
 
 	def _create_collision_points_top(self, surface, number):
 		return []
