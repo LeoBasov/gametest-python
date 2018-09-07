@@ -240,27 +240,27 @@ class BaseAnimation:
 		self.animation_iter = 0
 		self.front = front
 
-	def exec(self, front, position):
+	def exec(self, front, position, addition):
 		picture = 0
 
-		self._move(position)
+		self._move(position, addition)
 
 		if self.front:
 			picture = self.animation_front[self.self.animation_iter]
 
-			self._checK_animation_iter(self.animation_front)
+			self._check_animation_iter(self.animation_front)
 		else:
 			picture = self.animation_back[self.self.animation_iter]
 
-			self._checK_animation_iter(self.animation_back)
+			self._check_animation_iter(self.animation_back)
 
 		return picture
 
-	def _checK_animation_iter(self, animations):
+	def _check_animation_iter(self, animations):
 		if self.self.animation_iter == (len(animations) - 1):
 			self.self.animation_iter = 0
 		else:
 			self.self.animation_iter += 1
 
-	def _move(self, position):
+	def _move(self, position, addition):
 		pass

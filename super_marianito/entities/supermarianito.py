@@ -1,7 +1,41 @@
 import pygame
 from pygame.locals import *
 from entities.baseentity import Entitiy
+from entities.baseentity import BaseAnimation
 import math
+
+
+class Running(BaseAnimation):
+	"""docstring"""
+
+	def __init__(self):
+		super().__init__()
+
+		self.animation_front.append(pygame.image.load('./graphics/sup.png'))
+		self.animation_front.append(pygame.image.load('./graphics/sup_walk.png'))
+
+		self.animation_back.append(pygame.image.load('./graphics/sup_back.png'))
+		self.animation_back.append(pygame.image.load('./graphics/sup_walk_back.png'))
+
+class Jumping(BaseAnimation):
+	"""docstring"""
+
+	def __init__(self):
+		super().__init__()
+
+		self.animation_front.append(pygame.image.load('./graphics/sup_jump.png'))
+
+		self.animation_back.append(pygame.image.load('./graphics/sup_jump_back.png'))
+
+class Falling(BaseAnimation):
+	"""docstring"""
+
+	def __init__(self):
+		super().__init__()
+
+		self.animation_front.append(pygame.image.load('./graphics/sup_jump.png'))
+
+		self.animation_back.append(pygame.image.load('./graphics/sup_jump_back.png'))
 
 class SuperMarianito(Entitiy):
 	"""docstring for ClassName"""
