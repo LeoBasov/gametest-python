@@ -128,6 +128,24 @@ class BoundingBox:
 	def get_buttom(self):
 		return self.position[1] + self.centre[1] + self.buttom_add
 
+	def checK_if_inside_mult(self, points):
+		inside = []
+
+		for point in points:
+			if self.checK_if_inside(point):
+				inside.append(point)
+
+		return inside
+
+	def checK_if_inside(self, point):
+		ret = False
+
+		if (point[0] <= self.get_right()) and (point[0] >= self.get_left()) \
+		and (point[1] >= self.get_top()) and (point[1] <= self.get_buttom()):
+			ret = True
+
+		return ret
+
 
 class Collision:
 
@@ -185,26 +203,16 @@ class Entitiy:
 	def _check_collision(self, other):
 		collision = Collision()
 
-		"""if ((self.position[0] + self.extension[0]) > other.position[0]) \
-		and ((self.position[0] + self.extension[0]) < (other.position[0] + other.extension[0])):
-			collision.right_in = True
+		other_box = other.get_bounding_box()
+		coll_points = other_box.checK_if_inside_mult(self.get_bounding_box().coll_points_right)
 
-		if ((self.position[0]) > other.position[0]) \
-		and ((self.position[0]) < (other.position[0] + other.extension[0])):
-			collision.left_in = True
-
-		if ((self.position[1] + self.extension[1]) > other.position[1]) \
-		and ((self.position[1] + self.extension[1]) < (other.position[1] + other.extension[1])):
-			collision.buttom_in = True
-
-		if ((self.position[1]) > other.position[1]) \
-		and ((self.position[1]) < (other.position[1] + other.extension[1])):
-			collision.top_in = True
-
-		if (collision.right_in or collision.left_in) and (collision.buttom_in or collision.top_in):
-			collision.collided = True"""
+		if len(coll_points):
+			collision.collided = True
 
 		return collision
 
 	def evaluate_collisions(self):
 		self.collisions = {}
+
+	def get_bounding_box(self):
+		return self.bounding_boxes[self.animation_step]
