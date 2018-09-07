@@ -5,7 +5,10 @@ from pygame.locals import *
 
 class BoundingBox:
 
-	def __init__(self, surface, collision_points = (), additions = ()):
+	def __init__(self, surface, position, collision_points = (), additions = ()):
+		self.position = position
+		self.centre = [surface.get_rect().centerx, surface.get_rect().centery]
+
 		self.left_add   = 0
 		self.right_add  = 0
 		self.top_add    = 0
@@ -60,17 +63,17 @@ class BoundingBox:
 			self.top_add = additions[2]
 			self.buttom_add = additions[3]
 
-	def get_left(self, position):
-		return position[0] - self.left_add
+	def get_left(self):
+		return self.position[0] + self.centre[0] - self.left_add
 
-	def get_right(self, position):
-		return position[0] + self.right_add
+	def get_right(self):
+		return self.position[0] + self.centre[0] + self.right_add
 
-	def get_top(self, position):
-		return position[1] - self.top_add
+	def get_top(self):
+		return self.position[1] + self.centre[1] - self.top_add
 
-	def get_buttom(self, position):
-		return position[1] + self.buttom_add
+	def get_buttom(self):
+		return self.position[1] + self.centre[1] + self.buttom_add
 
 
 class Collision:
@@ -88,9 +91,9 @@ class Entitiy:
 
 	def __init__(self):
 		self.position = [0, 0]
-		self.extension = [0, 0]
 		self.animation_step = ''
 		self.graphics  = {}
+		self.bounding_boxes = {}
 		self.sounds = {}
 		self.dead = False
 		self.collisions = {}
@@ -99,6 +102,7 @@ class Entitiy:
 	def load_graphic(self, file_names):
 		for key, file_name in file_names.items():
 			self.graphics[key] =  pygame.image.load(file_name)
+			self.bounding_boxes[key] = BoundingBox(self.graphics[key], self.position)
 
 	def load_sounds(self, file_names):
 		for key, file_name in file_names.items():
@@ -128,7 +132,7 @@ class Entitiy:
 	def _check_collision(self, other):
 		collision = Collision()
 
-		if ((self.position[0] + self.extension[0]) > other.position[0]) \
+		"""if ((self.position[0] + self.extension[0]) > other.position[0]) \
 		and ((self.position[0] + self.extension[0]) < (other.position[0] + other.extension[0])):
 			collision.right_in = True
 
@@ -145,7 +149,7 @@ class Entitiy:
 			collision.top_in = True
 
 		if (collision.right_in or collision.left_in) and (collision.buttom_in or collision.top_in):
-			collision.collided = True
+			collision.collided = True"""
 
 		return collision
 

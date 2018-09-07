@@ -32,6 +32,8 @@ class GameState:
 		self.mover = Move()
 		self.position = [0, 0]
 
+		self.draw_bounding_boxes = False
+
 	def create_level(self, file_name):
 		self.level.graphic =  pygame.image.load(file_name)
 
@@ -52,6 +54,8 @@ class GameState:
 					self.mover.right = True
 				elif event.key == K_LEFT:
 					self.mover.left = True
+				elif event.key == K_b:
+					self.draw_bounding_boxes = (self.draw_bounding_boxes != True)
 			elif event.type == KEYUP:
 				if event.key == K_RIGHT:
 					self.mover.right = False
@@ -101,6 +105,12 @@ class GameState:
 
 		for key, ent in self.entities.items():
 			ent.print(surface_surf)
+
+		if self.draw_bounding_boxes:
+			for key, ent in self.entities.items():
+				box = ent.bounding_boxes[ent.animation_step]
+
+				pygame.draw.rect(surface_surf, (0, 0, 0), (box.get_left(), box.get_top(), box.get_right() - box.get_left(), box.get_buttom() - box.get_top()), 1)
 
 	def _print_level(self, surface_surf):
 		surface_surf.blit(self.level.graphic, (self.position[0], self.position[1]))
