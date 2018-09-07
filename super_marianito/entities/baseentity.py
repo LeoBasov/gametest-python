@@ -19,24 +19,26 @@ class BoundingBox:
 		self.coll_points_top    = []
 		self.coll_points_buttom = []
 
+		self.number_of_points_per_side = collision_points
+
 		self._create_additions(surface, additions)
-		self._create_collision_points(surface, collision_points)
+		self._create_collision_points()
 
-	def _create_collision_points(self, surface, collision_points):
-		if not len(collision_points):
-			number_of_points_per_side = 3
+	def _create_collision_points(self):
+		if not len(self.number_of_points_per_side):
+			number_of_points_per_side_loc = 3
 
-			self.coll_points_left   = self._create_collision_points_left(surface, number_of_points_per_side)
-			self.coll_points_right  = self._create_collision_points_right(surface, number_of_points_per_side)
-			self.coll_points_top    = self._create_collision_points_top(surface, number_of_points_per_side)
-			self.coll_points_buttom = self._create_collision_points_buttom(surface, number_of_points_per_side)
+			self.coll_points_left   = self._create_collision_points_left(number_of_points_per_side_loc)
+			self.coll_points_right  = self._create_collision_points_right(number_of_points_per_side_loc)
+			self.coll_points_top    = self._create_collision_points_top(number_of_points_per_side_loc)
+			self.coll_points_buttom = self._create_collision_points_buttom(number_of_points_per_side_loc)
 		else:
-			self.coll_points_left   = self._create_collision_points_left(surface, collision_points[0])
-			self.coll_points_right  = self._create_collision_points_right(surface, collision_points[1])
-			self.coll_points_top    = self._create_collision_points_top(surface, collision_points[2])
-			self.coll_points_buttom = self._create_collision_points_buttom(surface, collision_points[3])
+			self.coll_points_left   = self._create_collision_points_left(self.number_of_points_per_side[0])
+			self.coll_points_right  = self._create_collision_points_right(self.number_of_points_per_side[1])
+			self.coll_points_top    = self._create_collision_points_top(self.number_of_points_per_side[2])
+			self.coll_points_buttom = self._create_collision_points_buttom(self.number_of_points_per_side[3])
 
-	def _create_collision_points_left(self, surface, number):
+	def _create_collision_points_left(self, number):
 		first = [self.get_left(), self.get_top()]
 		last = [self.get_left(), self.get_buttom()]
 
@@ -52,7 +54,7 @@ class BoundingBox:
 
 		return points
 
-	def _create_collision_points_right(self, surface, number):
+	def _create_collision_points_right(self, number):
 		first = [self.get_right(), self.get_top()]
 		last = [self.get_right(), self.get_buttom()]
 
@@ -68,7 +70,7 @@ class BoundingBox:
 
 		return points
 
-	def _create_collision_points_top(self, surface, number):
+	def _create_collision_points_top(self, number):
 		first = [self.get_left(), self.get_top()]
 		last = [self.get_right(), self.get_top()]
 
@@ -84,7 +86,7 @@ class BoundingBox:
 
 		return points
 
-	def _create_collision_points_buttom(self, surface, number):
+	def _create_collision_points_buttom(self, number):
 		first = [self.get_left(), self.get_buttom()]
 		last = [self.get_right(), self.get_buttom()]
 
@@ -192,7 +194,7 @@ class Entitiy:
 		pass
 
 	def check_collision(self, other, key):
-		collision = self._check_collision(other)
+		collision = self._check_collision(other, key)
 
 		if collision.collided:
 			if not key in self.collisions:
@@ -200,11 +202,17 @@ class Entitiy:
 			else:
 				self.collisions[key].append(collision)
 
-	def _check_collision(self, other):
+	def _check_collision(self, other, key):
 		collision = Collision()
 
 		other_box = other.get_bounding_box()
-		coll_points = other_box.checK_if_inside_mult(self.get_bounding_box().coll_points_right)
+		my_box = self.get_bounding_box()
+		my_box._create_collision_points()
+
+		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_right)
+		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_left)
+		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_top)
+		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_buttom)
 
 		if len(coll_points):
 			collision.collided = True

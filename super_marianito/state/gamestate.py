@@ -78,12 +78,9 @@ class GameState:
 		player = self.entities['sup']
 
 		for key, ent in self.entities.items():
-			if key != 'sup':
-				player.check_collision(ent, key)
-
-				for key_inner, ent_inner in self.entities.items():
-					if key_inner != key:
-						ent.check_collision(ent_inner, key_inner)
+			for key_inner, ent_inner in self.entities.items():
+				if key_inner != key:
+					ent.check_collision(ent_inner, key_inner)
 
 	def _evaluate_collisions(self):
 		for key, ent in self.entities.items():
