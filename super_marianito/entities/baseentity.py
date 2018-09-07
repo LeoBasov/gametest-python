@@ -20,6 +20,7 @@ class BoundingBox:
 		self.coll_points_buttom = []
 
 		self._create_additions(surface, additions)
+		self._create_collision_points(surface, collision_points)
 
 	def _create_collision_points(self, surface, collision_points):
 		if not len(collision_points):
@@ -36,7 +37,20 @@ class BoundingBox:
 			self.coll_points_buttom = self._create_collision_points_buttom(surface, collision_points[3])
 
 	def _create_collision_points_left(self, surface, number):
-		return []
+		first = [self.get_left(), self.get_top()]
+		last = [self.get_left(), self.get_buttom()]
+
+		dist = (self.get_top() - self.get_buttom())/number
+
+		points = [first]
+
+		for i in range(number - 1):
+			point = [self.get_left(), self.get_top() + (i + 1)*dist]
+			points.append(point)
+
+		points.append(last)
+
+		return points
 
 	def _create_collision_points_right(self, surface, number):
 		return []
