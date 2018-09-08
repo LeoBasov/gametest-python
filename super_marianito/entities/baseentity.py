@@ -226,7 +226,7 @@ class Entitiy:
 		return self.bounding_boxes[self.animation_step]
 
 class BaseState:
-	def __init__(self):
+	def __init__(self, position):
 		self.animation_iter = 0
 		self.animation_iter_max = 1
 		self.animation_index = 0
@@ -235,7 +235,20 @@ class BaseState:
 		self.animation_back = []
 		self.front = True
 
+		self.bounding_boxes_front = []
+		self.bounding_boxes_back = []
+
 		self.graphic = 0
+		self.bounding_box = 0
+
+		self.position = position
+
+	def load_animation_step(self, file_name_front, file_name_back):
+		self.animation_front =  pygame.image.load(file_name_front)
+		self.animation_back =  pygame.image.load(file_name_back)
+
+		self.bounding_boxes_front = BoundingBox(self.animation_front[-1], self.position)
+		self.bounding_boxes_back  = BoundingBox(self.animation_back[-1], self.position)
 
 	def reset(self, front):
 		self.animation_iter = 0
@@ -246,9 +259,11 @@ class BaseState:
 
 		if self.front:
 			self.graphic = self.animation_front[self.self.animation_iter]
+			self.bounding_box = self.bounding_boxes_front[self.self.animation_iter]
 			self._check_animation_iter(self.animation_front)
 		else:
 			self.graphic = self.animation_back[self.self.animation_iter]
+			self.bounding_box = self.bounding_boxes_back[self.self.animation_iter]
 			self._check_animation_iter(self.animation_back)
 
 	def _check_animation_iter(self, animations):
