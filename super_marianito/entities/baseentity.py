@@ -203,12 +203,25 @@ class Entitiy:
 		my_box = self.get_bounding_box()
 		my_box._create_collision_points()
 
-		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_right)
-		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_left)
-		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_top)
-		coll_points = other_box.checK_if_inside_mult(my_box.coll_points_buttom)
+		coll_points_right  = other_box.checK_if_inside_mult(my_box.coll_points_right)
+		coll_points_left   = other_box.checK_if_inside_mult(my_box.coll_points_left)
+		coll_points_top    = other_box.checK_if_inside_mult(my_box.coll_points_top)
+		coll_points_buttom = other_box.checK_if_inside_mult(my_box.coll_points_buttom)
 
-		if len(coll_points):
+		if len(coll_points_right) > 1:
+			collision.right_in = True
+			collision.collided = True
+
+		if len(coll_points_left) > 1:
+			collision.left_in = True
+			collision.collided = True
+
+		if len(coll_points_top) > 1:
+			collision.top_in = True
+			collision.collided = True
+
+		if len(coll_points_buttom) > 1:
+			collision.buttom_in = True
 			collision.collided = True
 
 		return collision
