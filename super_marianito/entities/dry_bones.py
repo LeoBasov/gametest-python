@@ -1,9 +1,74 @@
 import pygame
 from pygame.locals import *
 from entities.baseentity import Entitiy
+from entities.baseentity import BaseState
 import math
 
-class DryBones(Entitiy):
+class Running(BaseState):
+	"""docstring"""
+
+	def __init__(self, position):
+		super().__init__(position)
+
+		self.animation_iter_max = 4
+
+		self.front = False
+
+		self.load_animation_step('./graphics/drybones_w_1.png', './graphics/drybones_w_1.png')
+		self.load_animation_step('./graphics/drybones_w_2.png', './graphics/drybones_w_2.png')
+		self.load_animation_step('./graphics/drybones_w_3.png', './graphics/drybones_w_3.png')
+		self.load_animation_step('./graphics/drybones_w_4.png', './graphics/drybones_w_4.png')
+		self.load_animation_step('./graphics/drybones_w_5.png', './graphics/drybones_w_5.png')
+		self.load_animation_step('./graphics/drybones_w_6.png', './graphics/drybones_w_6.png')
+		self.load_animation_step('./graphics/drybones_w_7.png', './graphics/drybones_w_7.png')
+
+	def _move(self, addition):
+		self.position[0] -= 1
+
+class Falling(BaseState):
+	"""docstring"""
+
+	def __init__(self, position):
+		super().__init__(position)
+
+		self.falling_speed = 0
+		self.falling_speed_max = 10
+		self.iter_number = 10
+		self.iter_step = 0.5*math.pi/self.iter_number
+		self.iter_pos = 0
+		self.iter = 0
+
+		self.front = False
+
+		self.load_animation_step('./graphics/drybones_w_1.png', './graphics/drybones_w_1.png')
+		self.load_animation_step('./graphics/drybones_w_2.png', './graphics/drybones_w_2.png')
+		self.load_animation_step('./graphics/drybones_w_3.png', './graphics/drybones_w_3.png')
+		self.load_animation_step('./graphics/drybones_w_4.png', './graphics/drybones_w_4.png')
+		self.load_animation_step('./graphics/drybones_w_5.png', './graphics/drybones_w_5.png')
+		self.load_animation_step('./graphics/drybones_w_6.png', './graphics/drybones_w_6.png')
+		self.load_animation_step('./graphics/drybones_w_7.png', './graphics/drybones_w_7.png')
+
+	def _move(self, addition):
+		if self.iter < self.iter_number:
+			self.iter_pos += self.iter_step
+			self.falling_speed = self.falling_speed_max*math.sin(self.iter_pos)
+			self.iter += 1
+
+		self.position[1] += self.falling_speed
+
+	def reset(self, front):
+		self.falling_speed = 0
+		self.falling_speed_max = 10
+		self.iter_number = 10
+		self.iter_step = 0.5*math.pi/self.iter_number
+		self.iter_pos = 0
+		self.iter = 0
+
+		self.animation_iter = 0
+		self.animation_index = 0
+		self.front = front
+
+class DryBonesOld(Entitiy):
 	"""docstring for ClassName"""
 	def __init__(self):
 		super().__init__()
@@ -86,4 +151,27 @@ class DryBones(Entitiy):
 					self.start = self.position[1]
 
 			self.collisions = {}
-			
+
+class DryBones(Entitiy):
+	"""docstring for ClassName"""
+
+	def __init__(self):
+		super().__init__()
+
+		self.state_step = 'run'
+
+		self.position[0] = 200
+		self.position[1] = 165
+
+		self._set_up_states()
+		self._set_up_sounds()
+
+	def _set_up_states(self):
+		self.states['run'] = Running(self.position)
+		self.states['fall'] = Falling(self.position)
+
+	def _set_up_sounds(self):
+		pass
+
+	def process_events(self, events):
+		pass

@@ -49,21 +49,9 @@ def set_up_sup(game_state, config):
 	game_state.add_entitiy(('sup',sup))
 
 def set_up_dry_bones(game_state, config):
-	"""dry_bones = DryBones()
-
-	dry_bones.load_graphic({'walk_1': './graphics/drybones_w_1.png'})
-	dry_bones.load_graphic({'walk_2': './graphics/drybones_w_2.png'})
-	dry_bones.load_graphic({'walk_3': './graphics/drybones_w_3.png'})
-	dry_bones.load_graphic({'walk_4': './graphics/drybones_w_4.png'})
-	dry_bones.load_graphic({'walk_5': './graphics/drybones_w_5.png'})
-	dry_bones.load_graphic({'walk_6': './graphics/drybones_w_6.png'})
-	dry_bones.load_graphic({'walk_7': './graphics/drybones_w_7.png'})
-
+	dry_bones = DryBones()
 	dry_bones.load_sounds({'die': './sound/smb_kick.wav'})
-
-	dry_bones.death_range = [[0, 0],[0,  config.resolution[1] + 20]]
-
-	game_state.add_entitiy(('dry_bones',dry_bones))"""
+	game_state.add_entitiy(('dry_bones',dry_bones))
 
 if __name__ == '__main__':
 	main()
