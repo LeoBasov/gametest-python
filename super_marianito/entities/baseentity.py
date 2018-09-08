@@ -179,7 +179,7 @@ class Entitiy:
 		pass
 
 	def move(self, addition):
-		pass
+		self.states[self.state_step].exec(addition)
 
 	def print(self, surface_surf):
 		surface_surf.blit(self.states[self.state_step].graphic, (self.position[0], self.position[1]))

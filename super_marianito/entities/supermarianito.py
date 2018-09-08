@@ -82,7 +82,7 @@ class Falling(BaseState):
 		self.iter_step = 0.5*math.pi/self.iter_number
 		self.iter_pos = 0
 		self.iter = 0
-		
+
 		self.animation_iter = 0
 		self.animation_index = 0
 		self.front = front
@@ -163,6 +163,3 @@ class SuperMarianito(Entitiy):
 				self.states[self.state_step].front = True
 			elif (event.type == KEYDOWN) and (event.key == K_LEFT):
 				self.states[self.state_step].front = False
-
-	def move(self, addition):
-		self.states[self.state_step].exec(addition)
