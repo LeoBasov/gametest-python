@@ -57,8 +57,8 @@ class Falling(BaseState):
 			self.falling_speed = self.falling_speed_max*math.sin(self.iter_pos)
 			self.iter += 1
 
-		self.position[0] += addition[0] + self.falling_speed
-		self.position[1] += addition[1]
+		self.position[0] += addition[0]
+		self.position[1] += addition[1] + self.falling_speed
 
 	def reset(self, front):
 		self.falling_speed = 0
@@ -103,8 +103,20 @@ class Dying(BaseState):
 			self.falling_speed = self.falling_speed_max*math.sin(self.iter_pos)
 			self.iter += 1
 
-		self.position[0] += addition[0] + self.falling_speed
-		self.position[1] += addition[1]
+		self.position[0] += addition[0]
+		self.position[1] += addition[1] + self.falling_speed
+
+	def reset(self, front):
+		self.falling_speed = 0
+		self.falling_speed_max = 10
+		self.iter_number = 10
+		self.iter_step = 0.5*math.pi/self.iter_number
+		self.iter_pos = 0
+		self.iter = 0
+
+		self.animation_iter = 0
+		self.animation_index = 0
+		self.front = front
 
 class DryBonesOld(Entitiy):
 	"""docstring for ClassName"""
