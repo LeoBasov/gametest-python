@@ -228,13 +228,12 @@ class Entitiy:
 class BaseAnimation:
 	def __init__(self):
 		self.animation_iter = 0
+		self.animation_iter_max = 1
+		self.animation_index = 0
+
 		self.animation_front = []
 		self.animation_back = []
-
 		self.front = True
-
-		self.movement_iter = 0
-		self.movement_iter_step = 0
 
 	def reset(self, front):
 		self.animation_iter = 0
@@ -257,10 +256,15 @@ class BaseAnimation:
 		return picture
 
 	def _check_animation_iter(self, animations):
-		if self.self.animation_iter == (len(animations) - 1):
-			self.self.animation_iter = 0
-		else:
-			self.self.animation_iter += 1
+		self.animation_index += 1
+
+		if self.animation_index == self.animation_iter_max:
+			self.animation_index = 0
+
+			if self.self.animation_iter == (len(animations) - 1):
+				self.self.animation_iter = 0
+			else:
+				self.self.animation_iter += 1
 
 	def _move(self, position, addition):
 		pass
