@@ -72,6 +72,13 @@ class Falling(BaseState):
 		self.animation_index = 0
 		self.front = front
 
+		if self.front:
+			self.graphic = self.animation_front[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_front[self.animation_iter]
+		else:
+			self.graphic = self.animation_back[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_back[self.animation_iter]
+
 class Dying(BaseState):
 	"""docstring"""
 
@@ -117,6 +124,13 @@ class Dying(BaseState):
 		self.animation_iter = 0
 		self.animation_index = 0
 		self.front = front
+
+		if self.front:
+			self.graphic = self.animation_front[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_front[self.animation_iter]
+		else:
+			self.graphic = self.animation_back[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_back[self.animation_iter]
 
 class DryBonesOld(Entitiy):
 	"""docstring for ClassName"""

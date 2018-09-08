@@ -45,6 +45,13 @@ class Jumping(BaseState):
 		self.front = front
 		self.done = False
 
+		if self.front:
+			self.graphic = self.animation_front[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_front[self.animation_iter]
+		else:
+			self.graphic = self.animation_back[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_back[self.animation_iter]
+
 	def _move(self, addition):
 		self.position[1] = self.start - self.height*math.sin(self.jump_iter)
 		self.jump_iter += self.jump_iter_step
@@ -86,6 +93,13 @@ class Falling(BaseState):
 		self.animation_iter = 0
 		self.animation_index = 0
 		self.front = front
+
+		if self.front:
+			self.graphic = self.animation_front[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_front[self.animation_iter]
+		else:
+			self.graphic = self.animation_back[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_back[self.animation_iter]
 
 class SuperMarianito(Entitiy):
 	"""docstring for ClassName"""
