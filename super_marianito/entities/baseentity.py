@@ -252,6 +252,7 @@ class BaseState:
 
 	def reset(self, front):
 		self.animation_iter = 0
+		self.animation_index = 0
 		self.front = front
 
 	def exec(self, front, addition):
