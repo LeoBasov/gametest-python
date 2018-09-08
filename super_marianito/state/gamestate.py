@@ -75,8 +75,6 @@ class GameState:
 			ent.move(mov)
 
 	def _check_collisions(self, events):
-		player = self.entities['sup']
-
 		for key, ent in self.entities.items():
 			for key_inner, ent_inner in self.entities.items():
 				if key_inner != key:
