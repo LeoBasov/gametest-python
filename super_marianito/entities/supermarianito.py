@@ -69,7 +69,7 @@ class SuperMarianito(Entitiy):
 	def __init__(self):
 		super().__init__()
 
-		self.state_step = 'jump'
+		self.state_step = 'stand'
 
 		self.position[0] = 50
 		self.position[1] = 180
@@ -87,23 +87,44 @@ class SuperMarianito(Entitiy):
 		pass
 
 	def process_events(self, events):
-		if self.state_step=='jump' and self.states[self.state_step].done:
-			self.state_step = 'fall'
-			self.states[self.state_step].reset(self.states[self.state_step].front)
+		if self.state_step == 'stand':
+			self._process_for_stand(events)
+		elif self.state_step == 'run':
+			self._process_for_run(events)
+		elif self.state_step == 'jump':
+			self._process_for_jump(events)
+		elif self.state_step == 'fall':
+			self._process_for_fall(events)
 
+	def _process_for_stand(self, events):
 		for event in events:
-			if (event.type == KEYDOWN) and (event.key == K_RIGHT) and ((not self.state_step=='run') or (not self.states[self.state_step].front)):
+			if (event.type == KEYDOWN) and (event.key == K_RIGHT):
 				self.state_step = 'run'
 				self.states[self.state_step].reset(True)
-			elif (event.type == KEYDOWN) and (event.key == K_LEFT) and ((not self.state_step=='run') or (self.states[self.state_step].front)):
+			elif (event.type == KEYDOWN) and (event.key == K_LEFT):
 				self.state_step = 'run'
 				self.states[self.state_step].reset(False)
-			elif (event.type == KEYUP) and (event.key == K_RIGHT) and not self.state_step=='jump':
+
+	def _process_for_run(self, events):
+		for event in events:
+			if (event.type == KEYDOWN) and (event.key == K_RIGHT) and (not self.states[self.state_step].front):
+				self.states[self.state_step].reset(True)
+			elif (event.type == KEYDOWN) and (event.key == K_LEFT) and self.states[self.state_step].front:
+				self.states[self.state_step].reset(False)
+			elif (event.type == KEYUP) and (event.key == K_RIGHT):
 				self.state_step = 'stand'
 				self.states[self.state_step].reset(True)
-			elif (event.type == KEYUP) and (event.key == K_LEFT) and not self.state_step=='jump':
+			elif (event.type == KEYUP) and (event.key == K_LEFT):
 				self.state_step = 'stand'
 				self.states[self.state_step].reset(False)
+
+	def _process_for_jump(self, events):
+		if self.states[self.state_step].done:
+			self.state_step = 'fall'
+			self.__process_for_fall(events)
+
+	def _process_for_fall(self, events):
+		pass
 
 	def move(self, addition):
 		self.states[self.state_step].exec(addition)
