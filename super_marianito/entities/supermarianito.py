@@ -20,8 +20,8 @@ class Running(BaseState):
 
 		self.animation_iter_max = 4
 
-		self.load_animation_step('./graphics/sup.png', './graphics/sup_back.png')
 		self.load_animation_step('./graphics/sup_walk.png', './graphics/sup_walk_back.png')
+		self.load_animation_step('./graphics/sup.png', './graphics/sup_back.png')
 
 class Jumping(BaseState):
 	"""docstring"""
