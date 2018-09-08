@@ -225,7 +225,7 @@ class Entitiy:
 	def get_bounding_box(self):
 		return self.bounding_boxes[self.animation_step]
 
-class BaseAnimation:
+class BaseState:
 	def __init__(self):
 		self.animation_iter = 0
 		self.animation_iter_max = 1
@@ -235,25 +235,21 @@ class BaseAnimation:
 		self.animation_back = []
 		self.front = True
 
+		self.graphic = 0
+
 	def reset(self, front):
 		self.animation_iter = 0
 		self.front = front
 
 	def exec(self, front, position, addition):
-		picture = 0
-
 		self._move(position, addition)
 
 		if self.front:
-			picture = self.animation_front[self.self.animation_iter]
-
+			self.graphic = self.animation_front[self.self.animation_iter]
 			self._check_animation_iter(self.animation_front)
 		else:
-			picture = self.animation_back[self.self.animation_iter]
-
+			self.graphic = self.animation_back[self.self.animation_iter]
 			self._check_animation_iter(self.animation_back)
-
-		return picture
 
 	def _check_animation_iter(self, animations):
 		self.animation_index += 1

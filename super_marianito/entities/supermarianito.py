@@ -1,11 +1,11 @@
 import pygame
 from pygame.locals import *
 from entities.baseentity import Entitiy
-from entities.baseentity import BaseAnimation
+from entities.baseentity import BaseState
 import math
 
 
-class Running(BaseAnimation):
+class Running(BaseState):
 	"""docstring"""
 
 	def __init__(self):
@@ -17,7 +17,7 @@ class Running(BaseAnimation):
 		self.animation_back.append(pygame.image.load('./graphics/sup_back.png'))
 		self.animation_back.append(pygame.image.load('./graphics/sup_walk_back.png'))
 
-class Jumping(BaseAnimation):
+class Jumping(BaseState):
 	"""docstring"""
 
 	def __init__(self):
@@ -27,7 +27,7 @@ class Jumping(BaseAnimation):
 
 		self.animation_back.append(pygame.image.load('./graphics/sup_jump_back.png'))
 
-class Falling(BaseAnimation):
+class Falling(BaseState):
 	"""docstring"""
 
 	def __init__(self):
