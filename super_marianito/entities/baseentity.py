@@ -254,8 +254,8 @@ class BaseState:
 		self.animation_iter = 0
 		self.front = front
 
-	def exec(self, front, position, addition):
-		self._move(position, addition)
+	def exec(self, front, addition):
+		self._move(addition)
 
 		if self.front:
 			self.graphic = self.animation_front[self.self.animation_iter]
@@ -277,5 +277,5 @@ class BaseState:
 			else:
 				self.self.animation_iter += 1
 
-	def _move(self, position, addition):
+	def _move(self, addition):
 		pass
