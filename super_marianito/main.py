@@ -46,6 +46,7 @@ def set_up_entities(game_state, config):
 
 def set_up_sup(game_state, config):
 	sup = SuperMarianito()
+	sup.load_sounds({'jump': './sound/smb_jump-small.wav'})
 	game_state.add_entitiy(('sup',sup))
 
 def set_up_dry_bones(game_state, config):

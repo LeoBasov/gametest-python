@@ -143,6 +143,7 @@ class SuperMarianito(Entitiy):
 				self.state_step = 'run'
 				self.states[self.state_step].reset(False)
 			elif (event.type == KEYDOWN) and (event.key == K_UP):
+				self.sounds['jump'].play()
 				self.state_step = 'jump'
 				self.states[self.state_step].reset(self.states['stand'].front)
 
@@ -159,6 +160,7 @@ class SuperMarianito(Entitiy):
 				self.state_step = 'stand'
 				self.states[self.state_step].reset(False)
 			elif (event.type == KEYDOWN) and (event.key == K_UP):
+				self.sounds['jump'].play()
 				self.state_step = 'jump'
 				self.states[self.state_step].reset(self.states['run'].front)
 
@@ -180,3 +182,12 @@ class SuperMarianito(Entitiy):
 				self.states[self.state_step].front = True
 			elif (event.type == KEYDOWN) and (event.key == K_LEFT):
 				self.states[self.state_step].front = False
+
+	def evaluate_collisions(self):
+		for key, collision in self.collisions.items():
+			if collision[0].buttom_in:
+				self.sounds['jump'].play()
+				self.state_step = 'jump'
+				self.states[self.state_step].reset(self.states['jump'].front)
+
+		self.collisions = {}
