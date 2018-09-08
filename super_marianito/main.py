@@ -46,22 +46,10 @@ def set_up_entities(game_state, config):
 
 def set_up_sup(game_state, config):
 	sup = SuperMarianito()
-
-	sup.load_graphic({'walk': './graphics/sup_walk.png'})
-	sup.load_graphic({'stand': './graphics/sup.png'})
-	sup.load_graphic({'jump': './graphics/sup_jump.png'})
-	sup.load_graphic({'walk_back': './graphics/sup_walk_back.png'})
-	sup.load_graphic({'stand_back': './graphics/sup_back.png'})
-	sup.load_graphic({'jump_back': './graphics/sup_jump_back.png'})
-
-	sup.load_sounds({'jump': './sound/smb_jump-small.wav'})
-
-	sup.death_range = [[0, 0],[0, 0]]
-
 	game_state.add_entitiy(('sup',sup))
 
 def set_up_dry_bones(game_state, config):
-	dry_bones = DryBones()
+	"""dry_bones = DryBones()
 
 	dry_bones.load_graphic({'walk_1': './graphics/drybones_w_1.png'})
 	dry_bones.load_graphic({'walk_2': './graphics/drybones_w_2.png'})
@@ -75,7 +63,7 @@ def set_up_dry_bones(game_state, config):
 
 	dry_bones.death_range = [[0, 0],[0,  config.resolution[1] + 20]]
 
-	game_state.add_entitiy(('dry_bones',dry_bones))
+	game_state.add_entitiy(('dry_bones',dry_bones))"""
 
 if __name__ == '__main__':
 	main()

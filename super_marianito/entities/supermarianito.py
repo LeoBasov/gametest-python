@@ -4,38 +4,40 @@ from entities.baseentity import Entitiy
 from entities.baseentity import BaseState
 import math
 
+class Standing(BaseState):
+	"""docstring"""
+
+	def __init__(self, position):
+		super().__init__(position)
+
+		self.load_animation_step('./graphics/sup.png', './graphics/sup_back.png')
 
 class Running(BaseState):
 	"""docstring"""
 
-	def __init__(self):
-		super().__init__()
+	def __init__(self, position):
+		super().__init__(position)
 
-		self.animation_front.append(pygame.image.load('./graphics/sup.png'))
-		self.animation_front.append(pygame.image.load('./graphics/sup_walk.png'))
+		self.animation_iter_max = 4
 
-		self.animation_back.append(pygame.image.load('./graphics/sup_back.png'))
-		self.animation_back.append(pygame.image.load('./graphics/sup_walk_back.png'))
+		self.load_animation_step('./graphics/sup.png', './graphics/sup_back.png')
+		self.load_animation_step('./graphics/sup_walk.png', './graphics/sup_walk_back.png')
 
 class Jumping(BaseState):
 	"""docstring"""
 
-	def __init__(self):
-		super().__init__()
+	def __init__(self, position):
+		super().__init__(position)
 
-		self.animation_front.append(pygame.image.load('./graphics/sup_jump.png'))
-
-		self.animation_back.append(pygame.image.load('./graphics/sup_jump_back.png'))
+		self.load_animation_step('./graphics/sup_jump.png', './graphics/sup_jump_back.png')
 
 class Falling(BaseState):
 	"""docstring"""
 
-	def __init__(self):
-		super().__init__()
+	def __init__(self, position):
+		super().__init__(position)
 
-		self.animation_front.append(pygame.image.load('./graphics/sup_jump.png'))
-
-		self.animation_back.append(pygame.image.load('./graphics/sup_jump_back.png'))
+		self.load_animation_step('./graphics/sup_jump.png', './graphics/sup_jump_back.png')
 
 class SuperMarianito(Entitiy):
 	"""docstring for ClassName"""
@@ -43,87 +45,37 @@ class SuperMarianito(Entitiy):
 	def __init__(self):
 		super().__init__()
 
+		self.state_step = 'stand'
+
 		self.position[0] = 50
 		self.position[1] = 180
 
-		self.jumping = False
-		self.start = 0
-		self.height = 50
-		self.iter = 0
-		self.iter_length = 0.1
+		self._set_up_states()
+		self._set_up_sounds()
 
-		self.animation_step = 'stand'
+	def _set_up_states(self):
+		self.states['stand'] = Standing(self.position)
+		self.states['run'] = Running(self.position)
+		self.states['jump'] = Jumping(self.position)
+		self.states['fall'] = Falling(self.position)
 
-		self.walking = True
-		self.walking_pressed = False
-		self.walk_it = 0
-		self.walk_max1 = 4
-		self.walk_max2 = 8
-
-		self.facing_front = True
+	def _set_up_sounds(self):
+		pass
 
 	def process_events(self, events):
 		for event in events:
-			if (event.type == KEYDOWN) and (event.key == K_UP) and (not self.jumping):
-				self.jumping = True
-				self.walking = False
-				self.start = self.position[1]
-				self.position[1] -= 1
-				self.iter = self.iter_length
-				self.sounds['jump'].play()
-
-				if self.facing_front:
-					self.animation_step = 'jump'
-				else:
-					self.animation_step = 'jump_back'
-
-			elif (event.type == KEYDOWN) and (event.key == K_RIGHT):
-				self.facing_front = True
-				self.walking_pressed = True
-			elif (event.type == KEYUP) and (event.key == K_RIGHT):
-				self.walking_pressed = False
-			elif (event.type == KEYDOWN) and (event.key == K_LEFT):
-				self.facing_front = False
-				self.walking_pressed = True
-			elif (event.type == KEYUP) and (event.key == K_LEFT):
-				self.walking_pressed = False
+			if (event.type == KEYDOWN) and (event.key == K_RIGHT) and ((not self.state_step=='run') or (not self.states[self.state_step].front)):
+				self.state_step = 'run'
+				self.states[self.state_step].reset(True)
+			elif (event.type == KEYDOWN) and (event.key == K_LEFT) and ((not self.state_step=='run') or (self.states[self.state_step].front)):
+				self.state_step = 'run'
+				self.states[self.state_step].reset(False)
+			elif (event.type == KEYUP) and (event.key == K_RIGHT) and not self.state_step=='jump':
+				self.state_step = 'stand'
+				self.states[self.state_step].reset(True)
+			elif (event.type == KEYUP) and (event.key == K_LEFT) and not self.state_step=='jump':
+				self.state_step = 'stand'
+				self.states[self.state_step].reset(False)
 
 	def move(self, addition):
-		if self.jumping and (self.position[1] < self.start):
-			self.position[1] = self.start - self.height*math.sin(self.iter)
-			self.iter += self.iter_length
-		elif self.jumping and (self.position[1] >= self.start):
-			self.position[1] = self.start
-			self.jumping = False
-			self.walking = True
-
-			if self.facing_front:
-				self.animation_step = 'stand'
-			else:
-				self.animation_step = 'stand_back'
-
-		if self.walking and self.walking_pressed and self.walk_it<=self.walk_max1:
-			self.walk_it += 1
-
-			if self.facing_front:
-				self.animation_step = 'walk'
-			else:
-				self.animation_step = 'walk_back'
-
-		elif self.walking and self.walking_pressed and self.walk_it<self.walk_max2:
-			self.walk_it += 1
-
-			if self.facing_front:
-				self.animation_step = 'stand'
-			else:
-				self.animation_step = 'stand_back'
-
-		elif self.walking and self.walking_pressed and self.walk_it>=self.walk_max2:
-			self.walk_it = 0
-		
-		if (not self.walking or not self.walking_pressed) and not self.jumping:
-			if self.facing_front:
-				self.animation_step = 'stand'
-			else:
-				self.animation_step = 'stand_back'
-
+		self.states[self.state_step].exec(addition)

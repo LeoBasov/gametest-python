@@ -103,7 +103,7 @@ class GameState:
 
 		if self.draw_bounding_boxes:
 			for key, ent in self.entities.items():
-				box = ent.bounding_boxes[ent.animation_step]
+				box = ent.get_bounding_box()
 
 				pygame.draw.rect(surface_surf, (0, 0, 0), (box.get_left(), box.get_top(), box.get_right() - box.get_left(), box.get_buttom() - box.get_top()), 1)
 

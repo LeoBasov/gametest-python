@@ -164,18 +164,12 @@ class Entitiy:
 
 	def __init__(self):
 		self.position = [0, 0]
-		self.animation_step = ''
-		self.graphics  = {}
-		self.bounding_boxes = {}
+		self.state_step = ''
+		self.states  = {}
 		self.sounds = {}
 		self.dead = False
 		self.collisions = {}
 		self.death_range = [[0, 0],[0, 0]]
-
-	def load_graphic(self, file_names):
-		for key, file_name in file_names.items():
-			self.graphics[key] =  pygame.image.load(file_name)
-			self.bounding_boxes[key] = BoundingBox(self.graphics[key], self.position)
 
 	def load_sounds(self, file_names):
 		for key, file_name in file_names.items():
@@ -188,7 +182,7 @@ class Entitiy:
 		pass
 
 	def print(self, surface_surf):
-		surface_surf.blit(self.graphics[self.animation_step], (self.position[0], self.position[1]))
+		surface_surf.blit(self.states[self.state_step].graphic, (self.position[0], self.position[1]))
 
 	def kill(self):
 		pass
@@ -223,7 +217,7 @@ class Entitiy:
 		self.collisions = {}
 
 	def get_bounding_box(self):
-		return self.bounding_boxes[self.animation_step]
+		return self.states[self.state_step].bounding_box
 
 class BaseState:
 	def __init__(self, position):
@@ -244,27 +238,27 @@ class BaseState:
 		self.position = position
 
 	def load_animation_step(self, file_name_front, file_name_back):
-		self.animation_front =  pygame.image.load(file_name_front)
-		self.animation_back =  pygame.image.load(file_name_back)
+		self.animation_front.append(pygame.image.load(file_name_front))
+		self.animation_back.append(pygame.image.load(file_name_back))
 
-		self.bounding_boxes_front = BoundingBox(self.animation_front[-1], self.position)
-		self.bounding_boxes_back  = BoundingBox(self.animation_back[-1], self.position)
+		self.bounding_boxes_front.append(BoundingBox(self.animation_front[-1], self.position))
+		self.bounding_boxes_back.append(BoundingBox(self.animation_back[-1], self.position))
 
 	def reset(self, front):
 		self.animation_iter = 0
 		self.animation_index = 0
 		self.front = front
 
-	def exec(self, front, addition):
+	def exec(self, addition):
 		self._move(addition)
 
 		if self.front:
-			self.graphic = self.animation_front[self.self.animation_iter]
-			self.bounding_box = self.bounding_boxes_front[self.self.animation_iter]
+			self.graphic = self.animation_front[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_front[self.animation_iter]
 			self._check_animation_iter(self.animation_front)
 		else:
-			self.graphic = self.animation_back[self.self.animation_iter]
-			self.bounding_box = self.bounding_boxes_back[self.self.animation_iter]
+			self.graphic = self.animation_back[self.animation_iter]
+			self.bounding_box = self.bounding_boxes_back[self.animation_iter]
 			self._check_animation_iter(self.animation_back)
 
 	def _check_animation_iter(self, animations):
@@ -273,10 +267,10 @@ class BaseState:
 		if self.animation_index == self.animation_iter_max:
 			self.animation_index = 0
 
-			if self.self.animation_iter == (len(animations) - 1):
-				self.self.animation_iter = 0
+			if self.animation_iter == (len(animations) - 1):
+				self.animation_iter = 0
 			else:
-				self.self.animation_iter += 1
+				self.animation_iter += 1
 
 	def _move(self, addition):
 		pass
