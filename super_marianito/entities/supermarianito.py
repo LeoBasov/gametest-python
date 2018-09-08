@@ -144,6 +144,9 @@ class SuperMarianito(Entitiy):
 			elif (event.type == KEYUP) and (event.key == K_LEFT):
 				self.state_step = 'stand'
 				self.states[self.state_step].reset(False)
+			elif (event.type == KEYDOWN) and (event.key == K_UP):
+				self.state_step = 'jump'
+				self.states[self.state_step].reset(self.states['run'].front)
 
 	def _process_for_jump(self, events):
 		if self.states[self.state_step].done:
