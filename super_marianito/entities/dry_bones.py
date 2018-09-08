@@ -23,7 +23,8 @@ class Running(BaseState):
 		self.load_animation_step('./graphics/drybones_w_7.png', './graphics/drybones_w_7.png')
 
 	def _move(self, addition):
-		self.position[0] -= 1
+		self.position[0] += addition[0] - 1
+		self.position[1] += addition[1]
 
 class Falling(BaseState):
 	"""docstring"""
@@ -37,6 +38,8 @@ class Falling(BaseState):
 		self.iter_step = 0.5*math.pi/self.iter_number
 		self.iter_pos = 0
 		self.iter = 0
+
+		self.animation_iter_max = 4
 
 		self.front = False
 
@@ -54,7 +57,8 @@ class Falling(BaseState):
 			self.falling_speed = self.falling_speed_max*math.sin(self.iter_pos)
 			self.iter += 1
 
-		self.position[1] += self.falling_speed
+		self.position[0] += addition[0] + self.falling_speed
+		self.position[1] += addition[1]
 
 	def reset(self, front):
 		self.falling_speed = 0
@@ -67,6 +71,40 @@ class Falling(BaseState):
 		self.animation_iter = 0
 		self.animation_index = 0
 		self.front = front
+
+class Dying(BaseState):
+	"""docstring"""
+
+	def __init__(self, position):
+		super().__init__(position)
+
+		self.falling_speed = 0
+		self.falling_speed_max = 10
+		self.iter_number = 10
+		self.iter_step = 0.5*math.pi/self.iter_number
+		self.iter_pos = 0
+		self.iter = 0
+
+		self.animation_iter_max = 4
+
+		self.front = False
+
+		self.load_animation_step('./graphics/drybones_w_1.png', './graphics/drybones_w_1.png')
+		self.load_animation_step('./graphics/drybones_w_2.png', './graphics/drybones_w_2.png')
+		self.load_animation_step('./graphics/drybones_w_3.png', './graphics/drybones_w_3.png')
+		self.load_animation_step('./graphics/drybones_w_4.png', './graphics/drybones_w_4.png')
+		self.load_animation_step('./graphics/drybones_w_5.png', './graphics/drybones_w_5.png')
+		self.load_animation_step('./graphics/drybones_w_6.png', './graphics/drybones_w_6.png')
+		self.load_animation_step('./graphics/drybones_w_7.png', './graphics/drybones_w_7.png')
+
+	def _move(self, addition):
+		if self.iter < self.iter_number:
+			self.iter_pos += self.iter_step
+			self.falling_speed = self.falling_speed_max*math.sin(self.iter_pos)
+			self.iter += 1
+
+		self.position[0] += addition[0] + self.falling_speed
+		self.position[1] += addition[1]
 
 class DryBonesOld(Entitiy):
 	"""docstring for ClassName"""
@@ -169,9 +207,20 @@ class DryBones(Entitiy):
 	def _set_up_states(self):
 		self.states['run'] = Running(self.position)
 		self.states['fall'] = Falling(self.position)
+		self.states['die'] = Dying(self.position)
 
 	def _set_up_sounds(self):
 		pass
 
 	def process_events(self, events):
 		pass
+
+	def evaluate_collisions(self):
+		if self.state_step == 'run':
+			for key, collision in self.collisions.items():
+				if key == 'sup' and collision[0].collided:
+					self.sounds['die'].play()
+					self.state_step = 'die'
+					self.states[self.state_step].reset(False)
+
+			self.collisions = {}
