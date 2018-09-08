@@ -58,10 +58,34 @@ class Falling(BaseState):
 	def __init__(self, position):
 		super().__init__(position)
 
+		self.falling_speed = 0
+		self.falling_speed_max = 10
+		self.iter_number = 10
+		self.iter_step = 0.5*math.pi/self.iter_number
+		self.iter_pos = 0
+		self.iter = 0
+
 		self.load_animation_step('./graphics/sup_jump.png', './graphics/sup_jump_back.png')
 
 	def _move(self, addition):
-		pass
+		if self.iter < self.iter_number:
+			self.iter_pos += self.iter_step
+			self.falling_speed = self.falling_speed_max*math.sin(self.iter_pos)
+			self.iter += 1
+
+		self.position[1] += self.falling_speed
+
+	def reset(self, front):
+		self.falling_speed = 0
+		self.falling_speed_max = 10
+		self.iter_number = 10
+		self.iter_step = 0.5*math.pi/self.iter_number
+		self.iter_pos = 0
+		self.iter = 0
+		
+		self.animation_iter = 0
+		self.animation_index = 0
+		self.front = front
 
 class SuperMarianito(Entitiy):
 	"""docstring for ClassName"""
@@ -134,7 +158,11 @@ class SuperMarianito(Entitiy):
 					self.states[self.state_step].front = False
 
 	def _process_for_fall(self, events):
-		pass
+		for event in events:
+			if (event.type == KEYDOWN) and (event.key == K_RIGHT):
+				self.states[self.state_step].front = True
+			elif (event.type == KEYDOWN) and (event.key == K_LEFT):
+				self.states[self.state_step].front = False
 
 	def move(self, addition):
 		self.states[self.state_step].exec(addition)
