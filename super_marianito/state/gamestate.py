@@ -33,6 +33,7 @@ class GameState:
 		self.position = [0, 0]
 
 		self.draw_bounding_boxes = False
+		self.draw_collision_points = False
 
 	def create_level(self, file_name):
 		self.level.graphic =  pygame.image.load(file_name)
@@ -56,6 +57,8 @@ class GameState:
 					self.mover.left = True
 				elif event.key == K_b:
 					self.draw_bounding_boxes = (self.draw_bounding_boxes != True)
+				elif event.key == K_c:
+					self.draw_collision_points = (self.draw_collision_points != True)
 			elif event.type == KEYUP:
 				if event.key == K_RIGHT:
 					self.mover.right = False
@@ -106,6 +109,22 @@ class GameState:
 				box = ent.get_bounding_box()
 
 				pygame.draw.rect(surface_surf, (0, 0, 0), (box.get_left(), box.get_top(), box.get_right() - box.get_left(), box.get_buttom() - box.get_top()), 1)
+
+		if self.draw_collision_points:
+			for key, ent in self.entities.items():
+				box = ent.get_bounding_box()
+
+				for point in box.coll_points_left:
+					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
+
+				for point in box.coll_points_right:
+					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
+
+				for point in box.coll_points_top:
+					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
+
+				for point in box.coll_points_buttom:
+					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
 
 	def _print_level(self, surface_surf):
 		surface_surf.blit(self.level.graphic, (self.position[0], self.position[1]))
