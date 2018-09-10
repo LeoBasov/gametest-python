@@ -42,7 +42,7 @@ class BoundingBox:
 		first = [self.get_left(), self.get_top()]
 		last = [self.get_left(), self.get_buttom()]
 
-		dist = (self.get_top() - self.get_buttom())/number
+		dist = (self.get_buttom() - self.get_top())/number
 
 		points = [first]
 
@@ -58,7 +58,7 @@ class BoundingBox:
 		first = [self.get_right(), self.get_top()]
 		last = [self.get_right(), self.get_buttom()]
 
-		dist = (self.get_top() - self.get_buttom())/number
+		dist = (self.get_buttom() - self.get_top())/number
 
 		points = [first]
 
