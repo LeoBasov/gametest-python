@@ -115,16 +115,16 @@ class GameState:
 				box = ent.get_bounding_box()
 
 				for point in box.coll_points_left:
-					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
+					self._draw_point(surface_surf, point)
 
 				for point in box.coll_points_right:
-					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
+					self._draw_point(surface_surf, point)
 
 				for point in box.coll_points_top:
-					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
+					self._draw_point(surface_surf, point)
 
 				for point in box.coll_points_buttom:
-					pygame.draw.line(surface_surf, (255, 0, 0), (point[0], point[1]), (point[0], point[1]), 5)
+					self._draw_point(surface_surf, point)
 
 	def _print_level(self, surface_surf):
 		surface_surf.blit(self.level.graphic, (self.position[0], self.position[1]))
@@ -138,3 +138,10 @@ class GameState:
 
 		for key in del_keys:
 			del self.entities[key]
+
+	def _draw_point(self, surface_surf, point):
+		RED = (255, 0, 0)
+		GREEN = (0, 255, 0)
+		BLUE = (0, 0, 255)
+
+		pygame.draw.circle(surface_surf, BLUE, (int(point[0]), int(point[1])), 2, 0)
