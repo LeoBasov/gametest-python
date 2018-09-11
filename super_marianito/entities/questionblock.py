@@ -34,7 +34,7 @@ class QuestionBlock(Entitiy):
 		self.state_step = 'hang'
 
 		self.position[0] = 200
-		self.position[1] = 100
+		self.position[1] = 150
 
 		self._set_up_states()
 		self._set_up_sounds()
