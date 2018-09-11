@@ -159,6 +159,10 @@ class Collision:
 		self.top_in = False
 		self.buttom_in = False
 
+		self.bounding_box = 0
+
+		self.type = ''
+
 class Entitiy:
 	"""docstring for Entitiy"""
 
@@ -212,18 +216,26 @@ class Entitiy:
 		if len(coll_points_right) > 1:
 			collision.right_in = True
 			collision.collided = True
+			collision.bounding_box = other_box
+			collision.type = other.type
 
 		if len(coll_points_left) > 1:
 			collision.left_in = True
 			collision.collided = True
+			collision.bounding_box = other_box
+			collision.type = other.type
 
 		if len(coll_points_top) > 1:
 			collision.top_in = True
 			collision.collided = True
+			collision.bounding_box = other_box
+			collision.type = other.type
 
 		if len(coll_points_buttom) > 1:
 			collision.buttom_in = True
 			collision.collided = True
+			collision.bounding_box = other_box
+			collision.type = other.type
 
 		return collision
 
