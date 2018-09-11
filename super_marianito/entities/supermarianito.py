@@ -149,20 +149,26 @@ class SuperMarianito(Entitiy):
 
 	def _process_for_run(self, events):
 		for event in events:
-			if (event.type == KEYDOWN) and (event.key == K_RIGHT) and (not self.states[self.state_step].front):
-				self.states[self.state_step].reset(True)
-			elif (event.type == KEYDOWN) and (event.key == K_LEFT) and self.states[self.state_step].front:
-				self.states[self.state_step].reset(False)
-			elif (event.type == KEYUP) and (event.key == K_RIGHT):
-				self.state_step = 'stand'
-				self.states[self.state_step].reset(True)
-			elif (event.type == KEYUP) and (event.key == K_LEFT):
-				self.state_step = 'stand'
-				self.states[self.state_step].reset(False)
-			elif (event.type == KEYDOWN) and (event.key == K_UP):
-				self.sounds['jump'].play()
-				self.state_step = 'jump'
-				self.states[self.state_step].reset(self.states['run'].front)
+			if self.states[self.state_step].front:
+				if (event.type == KEYDOWN) and (event.key == K_LEFT):
+					self.states[self.state_step].reset(False)
+				elif (event.type == KEYUP) and (event.key == K_RIGHT):
+					self.state_step = 'stand'
+					self.states[self.state_step].reset(True)
+				elif (event.type == KEYDOWN) and (event.key == K_UP):
+					self.sounds['jump'].play()
+					self.state_step = 'jump'
+					self.states[self.state_step].reset(self.states['run'].front)
+			elif not self.states[self.state_step].front:
+				if (event.type == KEYDOWN) and (event.key == K_RIGHT) and (not self.states[self.state_step].front):
+					self.states[self.state_step].reset(True)
+				elif (event.type == KEYUP) and (event.key == K_LEFT):
+					self.state_step = 'stand'
+					self.states[self.state_step].reset(False)
+				elif (event.type == KEYDOWN) and (event.key == K_UP):
+					self.sounds['jump'].play()
+					self.state_step = 'jump'
+					self.states[self.state_step].reset(self.states['run'].front)
 
 	def _process_for_jump(self, events):
 		if self.states[self.state_step].done:
