@@ -5,6 +5,7 @@ import state.gamestate
 import state.level
 from entities.supermarianito import SuperMarianito
 from entities.dry_bones import DryBones
+from entities.questionblock import QuestionBlock
 
 def main():
 	"""main function of the game"""
@@ -43,6 +44,7 @@ def main():
 def set_up_entities(game_state, config):
 	set_up_sup(game_state, config)
 	set_up_dry_bones(game_state, config)
+	set_up_questionblock(game_state, config)
 
 def set_up_sup(game_state, config):
 	sup = SuperMarianito()
@@ -53,6 +55,10 @@ def set_up_dry_bones(game_state, config):
 	dry_bones = DryBones()
 	dry_bones.load_sounds({'die': './sound/smb_kick.wav'})
 	game_state.add_entitiy(('dry_bones',dry_bones))
+
+def set_up_questionblock(game_state, config):
+	block = QuestionBlock()
+	game_state.add_entitiy(('questionblock',block))
 
 if __name__ == '__main__':
 	main()

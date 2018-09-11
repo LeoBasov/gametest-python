@@ -23,7 +23,7 @@ class Hanging(BaseState):
 		self.position[0] += addition[0]
 		self.position[1] += addition[1]
 
-class DryBones(Entitiy):
+class QuestionBlock(Entitiy):
 	"""docstring for ClassName"""
 
 	def __init__(self):
