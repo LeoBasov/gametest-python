@@ -140,6 +140,8 @@ class DryBones(Entitiy):
 	def __init__(self):
 		super().__init__()
 
+		self.type = 'enemy'
+
 		self.state_step = 'run'
 
 		self.position[0] = 200
@@ -160,11 +162,9 @@ class DryBones(Entitiy):
 		pass
 
 	def evaluate_collisions(self):
-		if self.state_step == 'run':
-			for key, collision in self.collisions.items():
-				if key == 'sup' and collision[0].collided:
-					self.sounds['die'].play()
-					self.state_step = 'die'
-					self.states[self.state_step].reset(False)
+		pass
 
-			self.collisions = {}
+	def kill(self):
+		self.sounds['die'].play()
+		self.state_step = 'die'
+		self.states[self.state_step].reset(False)
