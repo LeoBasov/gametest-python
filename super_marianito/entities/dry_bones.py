@@ -32,6 +32,8 @@ class Falling(BaseState):
 	def __init__(self, position):
 		super().__init__(position)
 
+		self.type = 'enemy'
+
 		self.falling_speed = 0
 		self.falling_speed_max = 10
 		self.iter_number = 10

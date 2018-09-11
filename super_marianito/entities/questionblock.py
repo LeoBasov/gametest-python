@@ -29,6 +29,8 @@ class QuestionBlock(Entitiy):
 	def __init__(self):
 		super().__init__()
 
+		self.type = 'block'
+
 		self.state_step = 'hang'
 
 		self.position[0] = 200

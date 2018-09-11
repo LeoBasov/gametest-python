@@ -170,6 +170,7 @@ class Entitiy:
 		self.dead = False
 		self.collisions = {}
 		self.death_range = [[0, 0],[0, 0]]
+		self.type = ''
 
 	def load_sounds(self, file_names):
 		for key, file_name in file_names.items():
