@@ -191,10 +191,16 @@ class SuperMarianito(Entitiy):
 
 	def evaluate_collisions(self):
 		for key, collision in self.collisions.items():
-			if collision[0].collided and collision[0].other.type=='enemy' and collision[0].buttom_in:
-				self.sounds['jump'].play()
-				self.state_step = 'jump'
-				self.states[self.state_step].reset(self.states['jump'].front)
-				collision[0].other.kill()
+			if collision[0].collided and collision[0].other.type=='enemy':
+				if collision[0].right_in or collision[0].left_in or collision[0].top_in:
+					self.kill()
+				elif collision[0].buttom_in:
+					self.sounds['jump'].play()
+					self.state_step = 'jump'
+					self.states[self.state_step].reset(self.states['jump'].front)
+					collision[0].other.kill()
 
 		self.collisions = {}
+
+	def kill(self):
+		print('dead')
