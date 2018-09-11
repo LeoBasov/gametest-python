@@ -35,6 +35,19 @@ class GameState:
 		self.draw_bounding_boxes = False
 		self.draw_collision_points = False
 
+		self.restart = False
+
+	def restart_func(self):
+		self.entities = {}
+		self.level = Level()
+		self.mover = Move()
+		self.position = [0, 0]
+
+		self.draw_bounding_boxes = False
+		self.draw_collision_points = False
+
+		self.restart = False
+
 	def create_level(self, file_name):
 		self.level.graphic =  pygame.image.load(file_name)
 
@@ -64,6 +77,8 @@ class GameState:
 					self.mover.right = False
 				elif event.key == K_LEFT:
 					self.mover.left = False
+				elif event.key == K_ESCAPE:
+					self.restart = True
 
 		for key, ent in self.entities.items():
 			ent.process_events(events)
@@ -133,11 +148,14 @@ class GameState:
 		del_keys = []
 
 		for key, ent in self.entities.items():
-			if ent.dead:
+			if key!='sup' and ent.dead:
 				del_keys.append(key)
+			elif ent.dead:
+				self.restart = True
 
 		for key in del_keys:
-			del self.entities[key]
+			if key!='sup':
+				del self.entities[key]
 
 	def _draw_point(self, surface_surf, point):
 		RED = (255, 0, 0)

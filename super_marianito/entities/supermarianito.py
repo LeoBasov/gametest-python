@@ -203,4 +203,4 @@ class SuperMarianito(Entitiy):
 		self.collisions = {}
 
 	def kill(self):
-		print('dead')
+		self.dead = True

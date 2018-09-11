@@ -20,16 +20,9 @@ def main():
 	DISPLAYSURF = pygame.display.set_mode((config.resolution[0], config.resolution[1]))
 	pygame.display.set_caption('SUPER Marianito')
 
-	#creae game state
 	game_state = state.gamestate.GameState()
-	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
 
-	#entities
-	set_up_entities(game_state, config)
-
-	#music
-	pygame.mixer.music.load('./sound/01-main-theme-overworld.mp3')
-	pygame.mixer.music.play(-1, 0.0)
+	restart(game_state, config)
 
 	#start game loop
 	while True: 
@@ -40,6 +33,9 @@ def main():
 
 		pygame.display.update()
 		fps_clock.tick(config.fps)
+
+		if game_state.restart:
+			restart(game_state, config)
 
 def set_up_entities(game_state, config):
 	set_up_sup(game_state, config)
@@ -59,6 +55,19 @@ def set_up_dry_bones(game_state, config):
 def set_up_questionblock(game_state, config):
 	block = QuestionBlock()
 	game_state.add_entitiy(('questionblock',block))
+
+def restart(game_state, config):
+	#creae game state
+	game_state.restart_func()
+	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
+
+	#entities
+	set_up_entities(game_state, config)
+
+	#music
+	pygame.mixer.music.load('./sound/01-main-theme-overworld.mp3')
+	pygame.mixer.music.play(-1, 0.0)
+
 
 if __name__ == '__main__':
 	main()
