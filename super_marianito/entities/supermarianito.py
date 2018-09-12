@@ -216,13 +216,8 @@ class SuperMarianito(Entitiy):
 				elif collision[0].buttom_in:
 					self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 			elif collision[0].collided and collision[0].other.type=='level':
-				if collision[0].buttom_in and self.state_step == 'fall':
-					self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
-					front = self.states[self.state_step].front
-					self.state_step = 'stand'
-					self.states[self.state_step].reset(front)
-				elif collision[0].buttom_in:
-					self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
+				self._interact_with_level(collision)
+				
 
 		if not len(self.collisions.items()) and self.start_falling and self.state_step == 'run':
 			front = self.states[self.state_step].front
@@ -235,6 +230,15 @@ class SuperMarianito(Entitiy):
 			self.start_falling = False
 
 		self.collisions = {}
+
+	def _interact_with_level(self, collision):
+		if collision[0].buttom_in and self.state_step == 'fall':
+			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
+			front = self.states[self.state_step].front
+			self.state_step = 'stand'
+			self.states[self.state_step].reset(front)
+		elif collision[0].buttom_in:
+			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 
 	def kill(self):
 		self.dead = True
