@@ -30,7 +30,7 @@ class Jumping(BaseState):
 		super().__init__(position)
 
 		self.start = self.position[1]
-		self.height = 50
+		self.height = 80
 		self.jump_iter_step = 0.1
 		self.jump_iter = self.jump_iter_step
 		self.done = False
