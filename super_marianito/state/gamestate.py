@@ -116,8 +116,15 @@ class GameState:
 
 		self._print_level(surface_surf)
 
+		#print level stuff
 		for key, ent in self.entities.items():
-			ent.print(surface_surf)
+			if ent.type == 'levle':
+				ent.print(surface_surf)
+
+		#print rest
+		for key, ent in self.entities.items():
+			if ent.type != 'levle':
+				ent.print(surface_surf)
 
 		if self.draw_bounding_boxes:
 			for key, ent in self.entities.items():

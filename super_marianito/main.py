@@ -6,6 +6,7 @@ import state.level
 from entities.supermarianito import SuperMarianito
 from entities.dry_bones import DryBones
 from entities.questionblock import QuestionBlock
+from entities.level_tile import LevelTile
 
 def main():
 	"""main function of the game"""
@@ -40,8 +41,7 @@ def main():
 def set_up_entities(game_state, config):
 	set_up_sup(game_state, config)
 	set_up_dry_bones(game_state, config)
-	for i in range(20):
-		set_up_questionblock(game_state, config, (i*16, 200), str(i))
+	set_up_level(game_state, config)
 
 def set_up_sup(game_state, config):
 	sup = SuperMarianito()
@@ -61,10 +61,15 @@ def set_up_questionblock(game_state, config, position, name):
 
 	game_state.add_entitiy((name,block))
 
+def set_up_level(game_state, config):
+	tile1 = LevelTile((0,200),'./graphics/level1-1_block_1.png')
+
+	game_state.add_entitiy(('tile1',tile1))
+
 def restart(game_state, config):
 	#creae game state
 	game_state.restart_func()
-	game_state.create_level('./graphics/SuperMarioBros-World1-Area1.png')
+	game_state.create_level('./graphics/level1-1.png')
 
 	#entities
 	set_up_entities(game_state, config)
