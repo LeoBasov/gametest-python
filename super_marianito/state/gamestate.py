@@ -81,7 +81,7 @@ class GameState:
 					self.restart = True
 
 		for key, ent in self.entities.items():
-			ent.process_events(events)
+			ent.process_events(events, self.mover.left or self.mover.right)
 
 	def _move(self):
 		mov = self.mover._move()

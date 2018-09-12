@@ -45,8 +45,5 @@ class QuestionBlock(Entitiy):
 	def _set_up_sounds(self):
 		pass
 
-	def process_events(self, events):
-		pass
-
 	def evaluate_collisions(self):
 		pass

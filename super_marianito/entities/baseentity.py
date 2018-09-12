@@ -159,7 +159,7 @@ class Entitiy:
 		for key, file_name in file_names.items():
 			self.sounds[key] =  pygame.mixer.Sound(file_name)
 
-	def process_events(self, events):
+	def process_events(self, events, moving):
 		pass
 
 	def move(self, addition):

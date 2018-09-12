@@ -124,17 +124,21 @@ class SuperMarianito(Entitiy):
 	def _set_up_sounds(self):
 		pass
 
-	def process_events(self, events):
+	def process_events(self, events, moving):
 		if self.state_step == 'stand':
-			self._process_for_stand(events)
+			self._process_for_stand(events, moving)
 		elif self.state_step == 'run':
-			self._process_for_run(events)
+			self._process_for_run(events, moving)
 		elif self.state_step == 'jump':
-			self._process_for_jump(events)
+			self._process_for_jump(events, moving)
 		elif self.state_step == 'fall':
-			self._process_for_fall(events)
+			self._process_for_fall(events, moving)
 
-	def _process_for_stand(self, events):
+	def _process_for_stand(self, events, moving):
+		if not len(events) and moving:
+			self.state_step = 'run'
+			self.states[self.state_step].reset(self.states['stand'].front)
+
 		for event in events:
 			if (event.type == KEYDOWN) and (event.key == K_RIGHT):
 				self.state_step = 'run'
@@ -147,7 +151,7 @@ class SuperMarianito(Entitiy):
 				self.state_step = 'jump'
 				self.states[self.state_step].reset(self.states['stand'].front)
 
-	def _process_for_run(self, events):
+	def _process_for_run(self, events, moving):
 		for event in events:
 			if self.states[self.state_step].front:
 				if (event.type == KEYDOWN) and (event.key == K_LEFT):
@@ -170,11 +174,11 @@ class SuperMarianito(Entitiy):
 					self.state_step = 'jump'
 					self.states[self.state_step].reset(self.states['run'].front)
 
-	def _process_for_jump(self, events):
+	def _process_for_jump(self, events, moving):
 		if self.states[self.state_step].done:
 			self.state_step = 'fall'
 			self.states[self.state_step].reset(self.states['jump'].front)
-			self._process_for_fall(events)
+			self._process_for_fall(events, moving)
 		else:
 			for event in events:
 				if (event.type == KEYDOWN) and (event.key == K_RIGHT):
@@ -182,7 +186,7 @@ class SuperMarianito(Entitiy):
 				elif (event.type == KEYDOWN) and (event.key == K_LEFT):
 					self.states[self.state_step].front = False
 
-	def _process_for_fall(self, events):
+	def _process_for_fall(self, events, moving):
 		for event in events:
 			if (event.type == KEYDOWN) and (event.key == K_RIGHT):
 				self.states[self.state_step].front = True
