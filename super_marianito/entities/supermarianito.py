@@ -112,6 +112,8 @@ class SuperMarianito(Entitiy):
 		self.position[0] = 50
 		self.position[1] = 185
 
+		self.start_falling = False
+
 		self._set_up_states()
 		self._set_up_sounds()
 
@@ -215,6 +217,18 @@ class SuperMarianito(Entitiy):
 					front = self.states[self.state_step].front
 					self.state_step = 'stand'
 					self.states[self.state_step].reset(front)
+				elif collision[0].buttom_in:
+					self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
+
+		if not len(self.collisions.items()) and self.start_falling and self.state_step == 'run':
+			front = self.states[self.state_step].front
+			self.state_step = 'fall'
+			self.states[self.state_step].reset(front)
+			self.start_falling = False
+		elif not len(self.collisions.items()) and self.state_step == 'run':
+			self.start_falling = True
+		else:
+			self.start_falling = False
 
 		self.collisions = {}
 
