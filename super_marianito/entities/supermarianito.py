@@ -110,7 +110,7 @@ class SuperMarianito(Entitiy):
 		self.state_step = 'stand'
 
 		self.position[0] = 50
-		self.position[1] = 180
+		self.position[1] = 185
 
 		self._set_up_states()
 		self._set_up_sounds()
