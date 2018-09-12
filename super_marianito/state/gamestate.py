@@ -32,6 +32,8 @@ class GameState:
 		self.mover = Move()
 		self.position = [0, 0]
 
+		self.left_min = self.position[0]
+
 		self.draw_bounding_boxes = False
 		self.draw_collision_points = False
 
@@ -70,6 +72,16 @@ class GameState:
 			for key, ent in self.entities.items():
 				ent.position[0] -= mov[0]
 				ent.position[1] -= mov[1]
+		elif self.position[0] > self.left_min:
+			mov = self.mover._move()
+
+			self.position[0] -= mov[0]
+			self.position[1] -= mov[1]
+
+			for key, ent in self.entities.items():
+				if key !='sup':
+					ent.position[0] -= mov[0]
+					ent.position[1] -= mov[1]
 
 	def _process_events(self, events):
 		for event in events:
