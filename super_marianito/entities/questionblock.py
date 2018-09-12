@@ -29,7 +29,7 @@ class QuestionBlock(Entitiy):
 	def __init__(self, position):
 		super().__init__()
 
-		self.type = 'block'
+		self.type = 'q_block'
 
 		self.state_step = 'hang'
 
