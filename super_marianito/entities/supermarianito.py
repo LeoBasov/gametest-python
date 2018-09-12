@@ -211,6 +211,8 @@ class SuperMarianito(Entitiy):
 					front = self.states[self.state_step].front
 					self.state_step = 'stand'
 					self.states[self.state_step].reset(front)
+				elif collision[0].buttom_in:
+					self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 			elif collision[0].collided and collision[0].other.type=='level':
 				if collision[0].buttom_in and self.state_step == 'fall':
 					self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
