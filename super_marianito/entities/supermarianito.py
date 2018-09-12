@@ -116,6 +116,8 @@ class SuperMarianito(Entitiy):
 
 		self.death_range[1][1] = 224
 
+		self.stuck = False
+
 		self._set_up_states()
 		self._set_up_sounds()
 
@@ -198,6 +200,8 @@ class SuperMarianito(Entitiy):
 				self.states[self.state_step].front = False
 
 	def evaluate_collisions(self):
+		self.stuck = False
+
 		for key, collision in self.collisions.items():
 			if collision[0].collided and collision[0].other.type=='enemy':
 				if collision[0].right_in or collision[0].left_in or collision[0].top_in:
@@ -239,6 +243,12 @@ class SuperMarianito(Entitiy):
 			self.states[self.state_step].reset(front)
 		elif collision[0].buttom_in:
 			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
+		elif collision[0].right_in:
+			self.position[0] =  collision[0].other.get_bounding_box().get_left() - self.get_bounding_box().width
+			self.stuck = True
+		elif collision[0].left_in:
+			self.position[0] =  collision[0].other.get_bounding_box().get_right()
+			self.stuck = True
 
 	def kill(self):
 		self.dead = True

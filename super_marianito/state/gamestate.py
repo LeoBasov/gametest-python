@@ -58,6 +58,18 @@ class GameState:
 		self._evaluate_collisions()
 		self._check_death_ranges()
 		self._delete_dead()
+		self._move_back()
+
+	def _move_back(self):
+		if self.entities['sup'].stuck:
+			mov = self.mover._move()
+
+			self.position[0] -= mov[0]
+			self.position[1] -= mov[1]
+
+			for key, ent in self.entities.items():
+				ent.position[0] -= mov[0]
+				ent.position[1] -= mov[1]
 
 	def _process_events(self, events):
 		for event in events:
