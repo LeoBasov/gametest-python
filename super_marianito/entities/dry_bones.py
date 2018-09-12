@@ -145,7 +145,7 @@ class DryBones(Entitiy):
 		self.state_step = 'run'
 
 		self.position[0] = 200
-		self.position[1] = 165
+		self.position[1] = 169
 
 		self._set_up_states()
 		self._set_up_sounds()
