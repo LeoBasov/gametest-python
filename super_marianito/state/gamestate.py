@@ -56,6 +56,7 @@ class GameState:
 		self._move()
 		self._check_collisions(events)
 		self._evaluate_collisions()
+		self._check_death_ranges()
 		self._delete_dead()
 
 	def _process_events(self, events):
@@ -102,6 +103,10 @@ class GameState:
 		for key, ent in self.entities.items():
 			ent.evaluate_collisions()
 
+	def _check_death_ranges(self):
+		for key, ent in self.entities.items():
+			ent.check_death_range()
+
 	def add_entitiy(self,entity_key_pair):
 		if entity_key_pair[0] in self.entities:
 			raise Exception('Entitiy exists')
@@ -118,12 +123,12 @@ class GameState:
 
 		#print level stuff
 		for key, ent in self.entities.items():
-			if ent.type == 'levle':
+			if ent.type == 'level':
 				ent.print(surface_surf)
 
 		#print rest
 		for key, ent in self.entities.items():
-			if ent.type != 'levle':
+			if ent.type != 'level':
 				ent.print(surface_surf)
 
 		if self.draw_bounding_boxes:

@@ -114,6 +114,8 @@ class SuperMarianito(Entitiy):
 
 		self.start_falling = False
 
+		self.death_range[1][1] = 224
+
 		self._set_up_states()
 		self._set_up_sounds()
 
@@ -236,3 +238,7 @@ class SuperMarianito(Entitiy):
 
 	def kill(self):
 		self.dead = True
+
+	def check_death_range(self):
+		if self.position[1] > self.death_range[1][1]:
+			self.kill()

@@ -147,6 +147,8 @@ class DryBones(Entitiy):
 		self.position[0] = 200
 		self.position[1] = 169
 
+		self.death_range[1][1] = 224
+
 		self._set_up_states()
 		self._set_up_sounds()
 
@@ -165,3 +167,7 @@ class DryBones(Entitiy):
 		self.sounds['die'].play()
 		self.state_step = 'die'
 		self.states[self.state_step].reset(False)
+
+	def check_death_range(self):
+		if self.position[1] > self.death_range[1][1]:
+			self.dead = True

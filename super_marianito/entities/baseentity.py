@@ -220,6 +220,9 @@ class Entitiy:
 	def get_bounding_box(self):
 		return self.states[self.state_step].bounding_box
 
+	def check_death_range(self):
+		pass
+
 class BaseState:
 	def __init__(self, position):
 		self.animation_iter = 0
