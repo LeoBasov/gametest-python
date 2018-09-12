@@ -23,7 +23,7 @@ class BoundingBox:
 
 	def _create_collision_points(self):
 		if not len(self.number_of_points_per_side):
-			number_of_points_per_side_loc = 3
+			number_of_points_per_side_loc = 10
 
 			self.coll_points_left   = self._create_collision_points_left(number_of_points_per_side_loc)
 			self.coll_points_right  = self._create_collision_points_right(number_of_points_per_side_loc)
@@ -185,29 +185,28 @@ class Entitiy:
 
 		other_box = other.get_bounding_box()
 		my_box = self.get_bounding_box()
-		my_box._create_collision_points()
 
 		coll_points_right  = other_box.checK_if_inside_mult(my_box.coll_points_right)
 		coll_points_left   = other_box.checK_if_inside_mult(my_box.coll_points_left)
 		coll_points_top    = other_box.checK_if_inside_mult(my_box.coll_points_top)
 		coll_points_buttom = other_box.checK_if_inside_mult(my_box.coll_points_buttom)
 
-		if len(coll_points_right) > 2:
+		if len(coll_points_right) > 3:
 			collision.right_in = True
 			collision.collided = True
 			collision.other = other
 
-		if len(coll_points_left) > 2:
+		if len(coll_points_left) > 3:
 			collision.left_in = True
 			collision.collided = True
 			collision.other = other
 
-		if len(coll_points_top) > 2:
+		if len(coll_points_top) > 3:
 			collision.top_in = True
 			collision.collided = True
 			collision.other = other
 
-		if len(coll_points_buttom) > 2:
+		if len(coll_points_buttom) > 3:
 			collision.buttom_in = True
 			collision.collided = True
 			collision.other = other
@@ -218,6 +217,8 @@ class Entitiy:
 		self.collisions = {}
 
 	def get_bounding_box(self):
+		self.states[self.state_step].bounding_box._create_collision_points()
+
 		return self.states[self.state_step].bounding_box
 
 	def check_death_range(self):
