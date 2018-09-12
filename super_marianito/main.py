@@ -67,10 +67,14 @@ def set_up_level(game_state, config):
 	tile3 = LevelTile((1425,200),'./graphics/level1-1_block_3.png')
 	tile4 = LevelTile((2480,200),'./graphics/level1-1_block_4.png')
 
+	q_block1 = QuestionBlock((256,136))
+
 	game_state.add_entitiy(('tile1',tile1))
 	game_state.add_entitiy(('tile2',tile2))
 	game_state.add_entitiy(('tile3',tile3))
 	game_state.add_entitiy(('tile4',tile4))
+
+	game_state.add_entitiy(('q_block1',q_block1))
 
 def restart(game_state, config):
 	#creae game state

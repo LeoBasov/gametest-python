@@ -10,14 +10,14 @@ class Hanging(BaseState):
 	def __init__(self, position):
 		super().__init__(position)
 
-		self.animation_iter_max = 6
+		self.animation_iter_max = 7
 
 		self.front = True
 
-		self.load_animation_step('./graphics/block_1.png', './graphics/block_1.png')
-		self.load_animation_step('./graphics/block_2.png', './graphics/block_2.png')
-		self.load_animation_step('./graphics/block_3.png', './graphics/block_3.png')
-		self.load_animation_step('./graphics/block_4.png', './graphics/block_4.png')
+		self.load_animation_step('./graphics/q_block_1.png', './graphics/q_block_1.png')
+		self.load_animation_step('./graphics/q_block_2.png', './graphics/q_block_2.png')
+		self.load_animation_step('./graphics/q_block_3.png', './graphics/q_block_3.png')
+		self.load_animation_step('./graphics/q_block_4.png', './graphics/q_block_4.png')
 
 	def _move(self, addition):
 		self.position[0] += addition[0]
@@ -26,15 +26,15 @@ class Hanging(BaseState):
 class QuestionBlock(Entitiy):
 	"""docstring for ClassName"""
 
-	def __init__(self):
+	def __init__(self, position):
 		super().__init__()
 
 		self.type = 'block'
 
 		self.state_step = 'hang'
 
-		self.position[0] = 50
-		self.position[1] = 200
+		self.position[0] = position[0]
+		self.position[1] = position[1]
 
 		self._set_up_states()
 		self._set_up_sounds()
