@@ -64,9 +64,11 @@ def set_up_questionblock(game_state, config, position, name):
 def set_up_level(game_state, config):
 	tile1 = LevelTile((0,200),'./graphics/level1-1_block_1.png')
 	tile2 = LevelTile((1136,200),'./graphics/level1-1_block_2.png')
+	tile3 = LevelTile((1425,200),'./graphics/level1-1_block_3.png')
 
 	game_state.add_entitiy(('tile1',tile1))
 	game_state.add_entitiy(('tile2',tile2))
+	game_state.add_entitiy(('tile3',tile3))
 
 def restart(game_state, config):
 	#creae game state
