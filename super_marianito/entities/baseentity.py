@@ -5,14 +5,12 @@ from pygame.locals import *
 
 class BoundingBox:
 
-	def __init__(self, surface, position, collision_points = (), additions = ()):
+	def __init__(self, surface, position, collision_points = ()):
 		self.position = position
 		self.centre = [surface.get_rect().centerx, surface.get_rect().centery]
 
-		self.left_add   = 0
-		self.right_add  = 0
-		self.top_add    = 0
-		self.buttom_add = 0
+		self.width = surface.get_rect().width
+		self.height = surface.get_rect().height
 
 		self.coll_points_left   = []
 		self.coll_points_right  = []
@@ -21,7 +19,6 @@ class BoundingBox:
 
 		self.number_of_points_per_side = collision_points
 
-		self._create_additions(surface, additions)
 		self._create_collision_points()
 
 	def _create_collision_points(self):
@@ -102,33 +99,17 @@ class BoundingBox:
 
 		return points
 
-	def _create_additions(self, surface, additions):
-		rect = surface.get_rect()
-
-		if not len(additions):
-			self.left_add = rect.width/2
-			self.right_add = rect.width/2
-
-			self.top_add = rect.height/2
-			self.buttom_add = rect.height/2
-		else:
-			self.left_add = additions[0]
-			self.right_add = additions[1]
-
-			self.top_add = additions[2]
-			self.buttom_add = additions[3]
-
 	def get_left(self):
-		return self.position[0] + self.centre[0] - self.left_add
+		return self.position[0]
 
 	def get_right(self):
-		return self.position[0] + self.centre[0] + self.right_add
+		return self.position[0] + self.width
 
 	def get_top(self):
-		return self.position[1] + self.centre[1] - self.top_add
+		return self.position[1]
 
 	def get_buttom(self):
-		return self.position[1] + self.centre[1] + self.buttom_add
+		return self.position[1] + self.height
 
 	def checK_if_inside_mult(self, points):
 		inside = []

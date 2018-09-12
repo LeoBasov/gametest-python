@@ -40,7 +40,8 @@ def main():
 def set_up_entities(game_state, config):
 	set_up_sup(game_state, config)
 	set_up_dry_bones(game_state, config)
-	set_up_questionblock(game_state, config)
+	for i in range(20):
+		set_up_questionblock(game_state, config, (i*16, 200), str(i))
 
 def set_up_sup(game_state, config):
 	sup = SuperMarianito()
@@ -52,9 +53,13 @@ def set_up_dry_bones(game_state, config):
 	dry_bones.load_sounds({'die': './sound/smb_kick.wav'})
 	game_state.add_entitiy(('dry_bones',dry_bones))
 
-def set_up_questionblock(game_state, config):
+def set_up_questionblock(game_state, config, position, name):
 	block = QuestionBlock()
-	game_state.add_entitiy(('questionblock',block))
+
+	block.position[0] = position[0]
+	block.position[1] = position[1]
+
+	game_state.add_entitiy((name,block))
 
 def restart(game_state, config):
 	#creae game state

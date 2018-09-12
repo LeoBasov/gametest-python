@@ -10,7 +10,7 @@ class Hanging(BaseState):
 	def __init__(self, position):
 		super().__init__(position)
 
-		self.animation_iter_max = 4
+		self.animation_iter_max = 6
 
 		self.front = True
 
@@ -33,8 +33,8 @@ class QuestionBlock(Entitiy):
 
 		self.state_step = 'hang'
 
-		self.position[0] = 200
-		self.position[1] = 150
+		self.position[0] = 50
+		self.position[1] = 200
 
 		self._set_up_states()
 		self._set_up_sounds()
