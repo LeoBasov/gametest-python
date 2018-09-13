@@ -10,7 +10,7 @@ class Running(BaseState):
 	def __init__(self, position):
 		super().__init__(position)
 
-		self.animation_iter_max = 4
+		self.animation_iter_max = 6
 
 		self.front = False
 
@@ -18,8 +18,12 @@ class Running(BaseState):
 		self.load_animation_step('./graphics/gumba_2.png', './graphics/gumba_2.png')
 
 	def _move(self, addition):
-		self.position[0] += addition[0] - 1
-		self.position[1] += addition[1]
+		if self.front:
+			self.position[0] += addition[0] + 1
+			self.position[1] += addition[1]
+		else:
+			self.position[0] += addition[0] - 1
+			self.position[1] += addition[1]
 
 class Falling(BaseState):
 	"""docstring"""
@@ -154,3 +158,15 @@ class Gumba(Entitiy):
 	def check_death_range(self):
 		if self.position[1] > self.death_range[1][1]:
 			self.dead = True
+
+	def evaluate_collisions(self):
+		self.stuck = False
+
+		for key, collision in self.collisions.items():
+			if collision[0].collided and (collision[0].other.type=='level' or collision[0].other.type=='block'):
+				if collision[0].left_in:
+					self.states['run'].reset(True)
+				elif collision[0].right_in:
+					self.states['run'].reset(False)
+				
+				

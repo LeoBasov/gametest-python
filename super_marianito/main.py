@@ -5,6 +5,7 @@ import state.gamestate
 import state.level
 from entities.supermarianito import SuperMarianito
 from entities.dry_bones import DryBones
+from entities.gumba import Gumba
 from entities.questionblock import QuestionBlock
 from entities.block import Block
 from entities.level_tile import LevelTile
@@ -41,7 +42,7 @@ def main():
 
 def set_up_entities(game_state, config):
 	set_up_sup(game_state, config)
-	set_up_dry_bones(game_state, config)
+	set_upt_enemies(game_state)
 	set_up_level(game_state, config)
 
 def set_up_sup(game_state, config):
@@ -104,6 +105,11 @@ def set_up_level(game_state, config):
 	game_state.add_entitiy(('block1',block1))
 	game_state.add_entitiy(('block2',block2))
 	game_state.add_entitiy(('block3',block3))
+
+def set_upt_enemies(game_state):
+	gumba1 = Gumba((600,184))
+
+	game_state.add_entitiy(('gumba1',gumba1))
 
 def restart(game_state, config):
 	#creae game state
