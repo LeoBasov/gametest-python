@@ -191,22 +191,22 @@ class Entitiy:
 		coll_points_top    = other_box.checK_if_inside_mult(my_box.coll_points_top)
 		coll_points_buttom = other_box.checK_if_inside_mult(my_box.coll_points_buttom)
 
-		if len(coll_points_right) > 3:
+		if len(coll_points_right) > 6:
 			collision.right_in = True
 			collision.collided = True
 			collision.other = other
 
-		if len(coll_points_left) > 3:
+		if len(coll_points_left) > 6:
 			collision.left_in = True
 			collision.collided = True
 			collision.other = other
 
-		if len(coll_points_top) > 3:
+		if len(coll_points_top) > 2:
 			collision.top_in = True
 			collision.collided = True
 			collision.other = other
 
-		if len(coll_points_buttom) > 3:
+		if len(coll_points_buttom) > 2:
 			collision.buttom_in = True
 			collision.collided = True
 			collision.other = other

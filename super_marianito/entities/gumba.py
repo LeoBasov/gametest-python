@@ -93,13 +93,8 @@ class Dying(BaseState):
 		self.load_animation_step('./graphics/gumba_dead.png', './graphics/gumba_dead.png')
 
 	def _move(self, addition):
-		if self.iter < self.iter_number:
-			self.iter_pos += self.iter_step
-			self.falling_speed = self.falling_speed_max*math.sin(self.iter_pos)
-			self.iter += 1
-
 		self.position[0] += addition[0]
-		self.position[1] += addition[1] + self.falling_speed
+		self.position[1] += addition[1]
 
 	def reset(self, front):
 		self.falling_speed = 0
@@ -134,6 +129,10 @@ class Gumba(Entitiy):
 		self.position[1] = position[1]
 
 		self.death_range[1][1] = 224
+
+		self.counter = 0
+
+		self.load_sounds({'die': './sound/smb_kick.wav'})
 
 		self._set_up_states()
 		self._set_up_sounds()
@@ -171,4 +170,10 @@ class Gumba(Entitiy):
 
 		self.collisions = {}
 				
-				
+	def move(self, addition):
+		self.states[self.state_step].exec(addition)
+
+		if self.counter >= 15:
+			self.dead = True
+		elif self.state_step=='die':
+			self.counter += 1
