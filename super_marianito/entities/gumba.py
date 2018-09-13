@@ -168,5 +168,7 @@ class Gumba(Entitiy):
 					self.states['run'].reset(True)
 				elif collision[0].right_in:
 					self.states['run'].reset(False)
+
+		self.collisions = {}
 				
 				

@@ -70,6 +70,7 @@ def set_up_level(game_state, config):
 	tile4 = LevelTile((2480,200),'./graphics/level1-1_block_4.png')
 
 	tube1 = LevelTile((448,168),'./graphics/tube_small.png')
+	tube2 = LevelTile((608,152),'./graphics/tube_medium.png')
 
 	stairs11 = LevelTile((2144,184),'./graphics/solid_line_4.png')
 	stairs12 = LevelTile((2160,168),'./graphics/solid_line_3.png')
@@ -91,6 +92,7 @@ def set_up_level(game_state, config):
 	game_state.add_entitiy(('tile4',tile4))
 
 	game_state.add_entitiy(('tube1',tube1))
+	game_state.add_entitiy(('tube2',tube2))
 
 	game_state.add_entitiy(('stairs11',stairs11))
 	game_state.add_entitiy(('stairs12',stairs12))
