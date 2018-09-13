@@ -14,16 +14,16 @@ class Hanging(BaseState):
 
 		self.front = True
 
-		self.load_animation_step('./graphics/q_block_1.png', './graphics/q_block_1.png')
-		self.load_animation_step('./graphics/q_block_2.png', './graphics/q_block_2.png')
-		self.load_animation_step('./graphics/q_block_3.png', './graphics/q_block_3.png')
-		self.load_animation_step('./graphics/q_block_4.png', './graphics/q_block_4.png')
+		self.load_animation_step('./graphics/block.png', './graphics/block.png')
+		self.load_animation_step('./graphics/block.png', './graphics/block.png')
+		self.load_animation_step('./graphics/block.png', './graphics/block.png')
+		self.load_animation_step('./graphics/block.png', './graphics/block.png')
 
 	def _move(self, addition):
 		self.position[0] += addition[0]
 		self.position[1] += addition[1]
 
-class QuestionBlock(Entitiy):
+class Block(Entitiy):
 	"""docstring for ClassName"""
 
 	def __init__(self, position):

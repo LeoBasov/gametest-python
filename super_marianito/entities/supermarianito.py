@@ -211,8 +211,8 @@ class SuperMarianito(Entitiy):
 					self.state_step = 'jump'
 					self.states[self.state_step].reset(self.states['jump'].front)
 					collision[0].other.kill()
-			elif collision[0].collided and collision[0].other.type=='q_block':
-				self._interact_with_q_bloc(collision)
+			elif collision[0].collided and collision[0].other.type=='block':
+				self._interact_with_bloc(collision)
 			elif collision[0].collided and collision[0].other.type=='level':
 				self._interact_with_level(collision)
 				
@@ -229,7 +229,7 @@ class SuperMarianito(Entitiy):
 
 		self.collisions = {}
 
-	def _interact_with_q_bloc(self, collision):
+	def _interact_with_bloc(self, collision):
 		if collision[0].buttom_in and self.state_step == 'fall':
 			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 			front = self.states[self.state_step].front

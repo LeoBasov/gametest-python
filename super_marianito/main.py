@@ -6,6 +6,7 @@ import state.level
 from entities.supermarianito import SuperMarianito
 from entities.dry_bones import DryBones
 from entities.questionblock import QuestionBlock
+from entities.block import Block
 from entities.level_tile import LevelTile
 
 def main():
@@ -79,6 +80,10 @@ def set_up_level(game_state, config):
 	q_block3 = QuestionBlock((368,136))
 	q_block4 = QuestionBlock((352,72))
 
+	block1 = Block((320,136))
+	block2 = Block((352,136))
+	block3 = Block((384,136))
+
 	game_state.add_entitiy(('tile1',tile1))
 	game_state.add_entitiy(('tile2',tile2))
 	game_state.add_entitiy(('tile3',tile3))
@@ -95,6 +100,10 @@ def set_up_level(game_state, config):
 	game_state.add_entitiy(('q_block2',q_block2))
 	game_state.add_entitiy(('q_block3',q_block3))
 	game_state.add_entitiy(('q_block4',q_block4))
+
+	game_state.add_entitiy(('block1',block1))
+	game_state.add_entitiy(('block2',block2))
+	game_state.add_entitiy(('block3',block3))
 
 def restart(game_state, config):
 	#creae game state
