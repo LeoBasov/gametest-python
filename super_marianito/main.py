@@ -75,6 +75,9 @@ def set_up_level(game_state, config):
 	stairs14 = LevelTile((2192,136),'./graphics/solid_line_1.png')
 
 	q_block1 = QuestionBlock((256,136))
+	q_block2 = QuestionBlock((336,136))
+	q_block3 = QuestionBlock((368,136))
+	q_block4 = QuestionBlock((352,72))
 
 	game_state.add_entitiy(('tile1',tile1))
 	game_state.add_entitiy(('tile2',tile2))
@@ -89,6 +92,9 @@ def set_up_level(game_state, config):
 	game_state.add_entitiy(('stairs14',stairs14))
 
 	game_state.add_entitiy(('q_block1',q_block1))
+	game_state.add_entitiy(('q_block2',q_block2))
+	game_state.add_entitiy(('q_block3',q_block3))
+	game_state.add_entitiy(('q_block4',q_block4))
 
 def restart(game_state, config):
 	#creae game state
