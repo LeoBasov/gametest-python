@@ -83,6 +83,7 @@ def set_up_level(game_state, config):
 	q_block2 = QuestionBlock((336,136))
 	q_block3 = QuestionBlock((368,136))
 	q_block4 = QuestionBlock((352,72))
+	q_block5 = QuestionBlock((1024,120))
 
 	block1 = Block((320,136))
 	block2 = Block((352,136))
@@ -107,6 +108,7 @@ def set_up_level(game_state, config):
 	game_state.add_entitiy(('q_block2',q_block2))
 	game_state.add_entitiy(('q_block3',q_block3))
 	game_state.add_entitiy(('q_block4',q_block4))
+	game_state.add_entitiy(('q_block5',q_block5))
 
 	game_state.add_entitiy(('block1',block1))
 	game_state.add_entitiy(('block2',block2))
