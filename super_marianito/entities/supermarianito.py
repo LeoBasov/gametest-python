@@ -230,12 +230,12 @@ class SuperMarianito(Entitiy):
 		self.collisions = {}
 
 	def _interact_with_bloc(self, collision):
-		if collision[0].buttom_in and self.state_step == 'fall':
+		if collision[0].buttom_in and self.state_step == 'fall' and not collision[0].right_in and not collision[0].left_in:
 			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 			front = self.states[self.state_step].front
 			self.state_step = 'stand'
 			self.states[self.state_step].reset(front)
-		elif collision[0].buttom_in:
+		elif collision[0].buttom_in and not collision[0].right_in and not collision[0].left_in:
 			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 		elif collision[0].right_in:
 			self.position[0] =  collision[0].other.get_bounding_box().get_left() - self.get_bounding_box().width
@@ -250,12 +250,12 @@ class SuperMarianito(Entitiy):
 			self.states[self.state_step].reset(front)
 
 	def _interact_with_level(self, collision):
-		if collision[0].buttom_in and self.state_step == 'fall':
+		if collision[0].buttom_in and self.state_step == 'fall' and not collision[0].right_in and not collision[0].left_in:
 			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 			front = self.states[self.state_step].front
 			self.state_step = 'stand'
 			self.states[self.state_step].reset(front)
-		elif collision[0].buttom_in:
+		elif collision[0].buttom_in and not collision[0].right_in and not collision[0].left_in:
 			self.position[1] = collision[0].other.get_bounding_box().get_top() - self.get_bounding_box().height + 2
 		elif collision[0].right_in:
 			self.position[0] =  collision[0].other.get_bounding_box().get_left() - self.get_bounding_box().width
