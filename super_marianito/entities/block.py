@@ -47,3 +47,6 @@ class Block(Entitiy):
 
 	def evaluate_collisions(self):
 		pass
+
+	def check_collision(self, other, key):
+		pass

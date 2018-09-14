@@ -36,3 +36,6 @@ class LevelTile(Entitiy):
 
 	def _set_up_states(self, file_name):
 		self.states['hang'] = Hanging(self.position, file_name)
+
+	def check_collision(self, other, key):
+		pass
