@@ -53,16 +53,25 @@ class Ememrging(BaseState):
 		self.animation_iter_max = 6
 
 		self.front = False
+		self.done = False
+		self.counter = 0
 
 		self.load_animation_step('./graphics/shroom.png', './graphics/shroom.png')
 
 	def _move(self, addition):
-		if self.front:
-			self.position[0] += addition[0]
-			self.position[1] += addition[1] - 1
+		if self.counter >= 15:
+			self.done = True
 		else:
 			self.position[0] += addition[0]
 			self.position[1] += addition[1] - 1
+
+			self.counter += 1
+
+	def reset(self, front):
+		super().reset(front)
+
+		self.done = False
+		self.counter = 0
 
 class Falling(BaseState):
 	"""docstring"""
@@ -160,7 +169,8 @@ class Shroom(Entitiy):
 	def move(self, addition):
 		self.states[self.state_step].exec(addition)
 
-		if self.counter >= 15:
-			self.dead = True
-		elif self.state_step=='die':
-			self.counter += 1
+		if self.state_step == 'emerge' and self.states[self.state_step].done:
+			front = self.states[self.state_step].front
+
+			self.state_step = 'run'
+			self.states[self.state_step].reset(True)
