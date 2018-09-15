@@ -50,3 +50,40 @@ class QuestionBlock(Entitiy):
 
 	def check_collision(self, other, key):
 		pass
+
+	def hit(self):
+		pass
+
+class ShroomBlock(Entitiy):
+	"""docstring for ClassName"""
+
+	def __init__(self, position, shroom):
+		super().__init__()
+
+		self.type = 'block'
+
+		self.state_step = 'hang'
+
+		self.shroom = shroom
+
+		self.position[0] = position[0]
+		self.position[1] = position[1]
+
+		self._set_up_states()
+		self._set_up_sounds()
+
+	def hit(self):
+		self.shroom.state_step = 'emerge'
+		self.shroom.states[self.shroom.state_step].reset(True)
+
+	def _set_up_states(self):
+		self.states['hang'] = Hanging(self.position)
+
+	def _set_up_sounds(self):
+		pass
+
+	def evaluate_collisions(self):
+		pass
+
+	def check_collision(self, other, key):
+		pass

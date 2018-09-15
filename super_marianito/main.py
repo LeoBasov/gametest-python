@@ -7,6 +7,7 @@ from entities.supermarianito import SuperMarianito
 from entities.dry_bones import DryBones
 from entities.gumba import Gumba
 from entities.questionblock import QuestionBlock
+from entities.questionblock import ShroomBlock
 from entities.block import Block
 from entities.level_tile import LevelTile
 from entities.shroom import Shroom
@@ -45,7 +46,6 @@ def set_up_entities(game_state, config):
 	set_up_sup(game_state, config)
 	set_upt_enemies(game_state)
 	set_up_level(game_state, config)
-	set_up_goodies(game_state)
 
 def set_up_sup(game_state, config):
 	sup = SuperMarianito()
@@ -60,6 +60,13 @@ def set_up_dry_bones(game_state, config):
 def set_up_questionblock(game_state, position, name):
 	block = QuestionBlock(position)
 
+	game_state.add_entitiy((name,block))
+
+def set_up_shroomblock(game_state, position, name):
+	shroom = Shroom(position)
+	block = ShroomBlock(position, shroom)
+
+	game_state.add_entitiy((name + 'shromm',shroom))
 	game_state.add_entitiy((name,block))
 
 def set_up_block(game_state, position, name):
@@ -88,7 +95,8 @@ def set_up_level(game_state, config):
 	set_up_level_tile(game_state, (2176,152),'./graphics/solid_line_2.png' , 'stairs13')
 	set_up_level_tile(game_state, (2192,136),'./graphics/solid_line_1.png' , 'stairs14')
 
-	set_up_questionblock(game_state, (336,136), 'q_block1')
+	set_up_shroomblock(game_state, (336,136), 'q_block1')
+
 	set_up_questionblock(game_state, (256,136), 'q_block2')
 	set_up_questionblock(game_state, (368,136), 'q_block3')
 	set_up_questionblock(game_state, (352,72),  'q_block4')
@@ -102,14 +110,6 @@ def set_upt_enemies(game_state):
 	gumba1 = Gumba((600,184))
 
 	game_state.add_entitiy(('gumba1',gumba1))
-
-def set_up_goodies(game_state):
-	set_up_shroom(game_state, (336,136), 'shroom1')
-
-def set_up_shroom(game_state, position, name):
-	shroom = Shroom(position)
-
-	game_state.add_entitiy((name,shroom))
 
 def restart(game_state, config):
 	#creae game state

@@ -44,6 +44,26 @@ class Hiding(BaseState):
 			self.position[0] += addition[0]
 			self.position[1] += addition[1]
 
+class Ememrging(BaseState):
+	"""docstring"""
+
+	def __init__(self, position):
+		super().__init__(position)
+
+		self.animation_iter_max = 6
+
+		self.front = False
+
+		self.load_animation_step('./graphics/shroom.png', './graphics/shroom.png')
+
+	def _move(self, addition):
+		if self.front:
+			self.position[0] += addition[0]
+			self.position[1] += addition[1] - 1
+		else:
+			self.position[0] += addition[0]
+			self.position[1] += addition[1] - 1
+
 class Falling(BaseState):
 	"""docstring"""
 
@@ -116,6 +136,7 @@ class Shroom(Entitiy):
 		self.states['run'] = Running(self.position)
 		self.states['fall'] = Falling(self.position)
 		self.states['hide'] = Hiding(self.position)
+		self.states['emerge'] = Ememrging(self.position)
 
 	def kill(self):
 		self.dead = True

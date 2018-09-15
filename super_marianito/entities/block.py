@@ -50,3 +50,6 @@ class Block(Entitiy):
 
 	def check_collision(self, other, key):
 		pass
+
+	def hit(self):
+		pass
