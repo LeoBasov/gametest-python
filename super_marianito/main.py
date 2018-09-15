@@ -9,6 +9,7 @@ from entities.gumba import Gumba
 from entities.questionblock import QuestionBlock
 from entities.block import Block
 from entities.level_tile import LevelTile
+from entities.shroom import Shroom
 
 def main():
 	"""main function of the game"""
@@ -44,6 +45,7 @@ def set_up_entities(game_state, config):
 	set_up_sup(game_state, config)
 	set_upt_enemies(game_state)
 	set_up_level(game_state, config)
+	set_up_goodies(game_state)
 
 def set_up_sup(game_state, config):
 	sup = SuperMarianito()
@@ -118,6 +120,14 @@ def set_upt_enemies(game_state):
 	gumba1 = Gumba((600,184))
 
 	game_state.add_entitiy(('gumba1',gumba1))
+
+def set_up_goodies(game_state):
+	set_up_shroom(game_state, (336,120), 'shroom1')
+
+def set_up_shroom(game_state, position, name):
+	shroom = Shroom(position)
+
+	game_state.add_entitiy((name,shroom))
 
 def restart(game_state, config):
 	#creae game state
