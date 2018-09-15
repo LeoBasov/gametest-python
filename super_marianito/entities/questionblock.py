@@ -23,6 +23,22 @@ class Hanging(BaseState):
 		self.position[0] += addition[0]
 		self.position[1] += addition[1]
 
+class Done(BaseState):
+	"""docstring"""
+
+	def __init__(self, position):
+		super().__init__(position)
+
+		self.animation_iter_max = 7
+
+		self.front = True
+
+		self.load_animation_step('./graphics/q_block_done.png', './graphics/q_block_done.png')
+
+	def _move(self, addition):
+		self.position[0] += addition[0]
+		self.position[1] += addition[1]
+
 class QuestionBlock(Entitiy):
 	"""docstring for ClassName"""
 
@@ -73,11 +89,16 @@ class ShroomBlock(Entitiy):
 		self._set_up_sounds()
 
 	def hit(self):
-		self.shroom.state_step = 'emerge'
-		self.shroom.states[self.shroom.state_step].reset(True)
+		if self.state_step == 'hang':
+			self.shroom.state_step = 'emerge'
+			self.shroom.states[self.shroom.state_step].reset(True)
+
+			self.state_step = 'done'
+			self.states[self.state_step].reset(True)
 
 	def _set_up_states(self):
 		self.states['hang'] = Hanging(self.position)
+		self.states['done'] = Done(self.position)
 
 	def _set_up_sounds(self):
 		pass
