@@ -57,64 +57,46 @@ def set_up_dry_bones(game_state, config):
 	dry_bones.load_sounds({'die': './sound/smb_kick.wav'})
 	game_state.add_entitiy(('dry_bones',dry_bones))
 
-def set_up_questionblock(game_state, config, position, name):
-	block = QuestionBlock()
-
-	block.position[0] = position[0]
-	block.position[1] = position[1]
+def set_up_questionblock(game_state, position, name):
+	block = QuestionBlock(position)
 
 	game_state.add_entitiy((name,block))
 
+def set_up_block(game_state, position, name):
+	block = Block(position)
+
+	game_state.add_entitiy((name,block))
+
+def set_up_level_tile(game_state, position, file_name, name):
+	tile = LevelTile(position, file_name)
+
+	game_state.add_entitiy((name,tile))
+
 def set_up_level(game_state, config):
-	tile1 = LevelTile((0,200),'./graphics/level1-1_block_1.png')
-	tile2 = LevelTile((1136,200),'./graphics/level1-1_block_2.png')
-	tile3 = LevelTile((1425,200),'./graphics/level1-1_block_3.png')
-	tile4 = LevelTile((2480,200),'./graphics/level1-1_block_4.png')
+	set_up_level_tile(game_state, (0,200)   , './graphics/level1-1_block_1.png', 'tile1')
+	set_up_level_tile(game_state, (1136,200), './graphics/level1-1_block_2.png', 'tile2')
+	set_up_level_tile(game_state, (1425,200), './graphics/level1-1_block_3.png', 'tile3')
+	set_up_level_tile(game_state, (2480,200), './graphics/level1-1_block_4.png', 'tile4')
 
-	tube1 = LevelTile((448,168),'./graphics/tube_small.png')
-	tube2 = LevelTile((608,152),'./graphics/tube_medium.png')
-	tube3 = LevelTile((736,136),'./graphics/tube_tall.png')
-	tube4 = LevelTile((912,136),'./graphics/tube_tall.png')
+	set_up_level_tile(game_state, (448,168), './graphics/tube_small.png' , 'tube1')
+	set_up_level_tile(game_state, (608,152), './graphics/tube_medium.png', 'tube2')
+	set_up_level_tile(game_state, (736,136), './graphics/tube_tall.png'  , 'tube3')
+	set_up_level_tile(game_state, (912,136), './graphics/tube_tall.png'  , 'tube4')
 
-	stairs11 = LevelTile((2144,184),'./graphics/solid_line_4.png')
-	stairs12 = LevelTile((2160,168),'./graphics/solid_line_3.png')
-	stairs13 = LevelTile((2176,152),'./graphics/solid_line_2.png')
-	stairs14 = LevelTile((2192,136),'./graphics/solid_line_1.png')
+	set_up_level_tile(game_state, (2144,184),'./graphics/solid_line_4.png' , 'stairs11')
+	set_up_level_tile(game_state, (2160,168),'./graphics/solid_line_3.png' , 'stairs12')
+	set_up_level_tile(game_state, (2176,152),'./graphics/solid_line_2.png' , 'stairs13')
+	set_up_level_tile(game_state, (2192,136),'./graphics/solid_line_1.png' , 'stairs14')
 
-	q_block1 = QuestionBlock((256,136))
-	q_block2 = QuestionBlock((336,136))
-	q_block3 = QuestionBlock((368,136))
-	q_block4 = QuestionBlock((352,72))
-	q_block5 = QuestionBlock((1024,120))
+	set_up_questionblock(game_state, (336,136), 'q_block1')
+	set_up_questionblock(game_state, (256,136), 'q_block2')
+	set_up_questionblock(game_state, (368,136), 'q_block3')
+	set_up_questionblock(game_state, (352,72),  'q_block4')
+	set_up_questionblock(game_state, (1024,120),'q_block5')
 
-	block1 = Block((320,136))
-	block2 = Block((352,136))
-	block3 = Block((384,136))
-
-	game_state.add_entitiy(('tile1',tile1))
-	game_state.add_entitiy(('tile2',tile2))
-	game_state.add_entitiy(('tile3',tile3))
-	game_state.add_entitiy(('tile4',tile4))
-
-	game_state.add_entitiy(('tube1',tube1))
-	game_state.add_entitiy(('tube2',tube2))
-	game_state.add_entitiy(('tube3',tube3))
-	game_state.add_entitiy(('tube4',tube4))
-
-	game_state.add_entitiy(('stairs11',stairs11))
-	game_state.add_entitiy(('stairs12',stairs12))
-	game_state.add_entitiy(('stairs13',stairs13))
-	game_state.add_entitiy(('stairs14',stairs14))
-
-	game_state.add_entitiy(('q_block1',q_block1))
-	game_state.add_entitiy(('q_block2',q_block2))
-	game_state.add_entitiy(('q_block3',q_block3))
-	game_state.add_entitiy(('q_block4',q_block4))
-	game_state.add_entitiy(('q_block5',q_block5))
-
-	game_state.add_entitiy(('block1',block1))
-	game_state.add_entitiy(('block2',block2))
-	game_state.add_entitiy(('block3',block3))
+	set_up_block(game_state, (320,136), 'block1')
+	set_up_block(game_state, (352,136), 'block2')
+	set_up_block(game_state, (384,136), 'block3')
 
 def set_upt_enemies(game_state):
 	gumba1 = Gumba((600,184))
