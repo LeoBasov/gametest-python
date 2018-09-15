@@ -150,9 +150,13 @@ class GameState:
 			if ent.type == 'level':
 				ent.print(surface_surf)
 
+		for key, ent in self.entities.items():
+			if ent.type == 'goodie':
+				ent.print(surface_surf)
+
 		#print rest
 		for key, ent in self.entities.items():
-			if ent.type != 'level':
+			if ent.type != 'level' and ent.type != 'goodie':
 				ent.print(surface_surf)
 
 		if self.draw_bounding_boxes:

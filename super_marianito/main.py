@@ -104,7 +104,7 @@ def set_upt_enemies(game_state):
 	game_state.add_entitiy(('gumba1',gumba1))
 
 def set_up_goodies(game_state):
-	set_up_shroom(game_state, (336,120), 'shroom1')
+	set_up_shroom(game_state, (336,136), 'shroom1')
 
 def set_up_shroom(game_state, position, name):
 	shroom = Shroom(position)
